@@ -1,4 +1,4 @@
-namespace Task_01_Sorting
+namespace Task_01_Tests
 {
     public class Tests
     {

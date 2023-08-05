@@ -14,11 +14,18 @@ namespace Task_01
 
             foreach (var item in array)
                 Console.Write($"{item} ");
-
         }
 
         static int[] BubbleSort(int[] array)
         {
+            if (array.Length < 2) 
+                return array;
+
+            for (int k = 0; k < array.Length; k++)
+                for (int i = 0; i < array.Length - 1; i++)
+                    if (array[i] > array[i + 1])
+                        (array[i], array[i + 1]) = (array[i + 1], array[i]);
+
             return array;
         }
     }

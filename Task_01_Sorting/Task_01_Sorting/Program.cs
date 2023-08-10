@@ -6,9 +6,23 @@ namespace Task_01
     {
         static void Main()
         {
+
             Console.WriteLine("Enter numbers separated by spaces:");
-            string input = Console.ReadLine();
-            int[] array =  input.Split(' ').Select(int.Parse).ToArray();
+            string input;
+            int[] array;
+            while (true)
+            {
+                try
+                {
+                    input = Console.ReadLine() ?? "";
+                    array = input.Split(' ').Select(int.Parse).ToArray();
+                    break;
+                }
+                catch 
+                {
+                    Console.WriteLine("Incorrect input!");
+                }
+            }
 
             BubbleSort(array);
 

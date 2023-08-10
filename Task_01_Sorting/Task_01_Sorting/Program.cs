@@ -1,46 +1,45 @@
 ﻿using System;
 
-namespace Task_01
+namespace Task_01_Sorting;
+
+public class Sorting
 {
-    class Sorting
+    static void Main()
     {
-        static void Main()
-        {
 
-            Console.WriteLine("Enter numbers separated by spaces:");
-            string input;
-            int[] array;
-            while (true)
+        Console.WriteLine("Enter numbers separated by spaces:");
+        string input;
+        int[] array;
+        while (true)
+        {
+            try
             {
-                try
-                {
-                    input = Console.ReadLine() ?? "";
-                    array = input.Split(' ').Select(int.Parse).ToArray();
-                    break;
-                }
-                catch 
-                {
-                    Console.WriteLine("Incorrect input!");
-                }
+                input = Console.ReadLine() ?? "";
+                array = input.Split(' ').Select(int.Parse).ToArray();
+                break;
             }
-
-            BubbleSort(array);
-
-            foreach (var item in array)
-                Console.Write($"{item} ");
+            catch
+            {
+                Console.WriteLine("Incorrect input!");
+            }
         }
 
-        static int[] BubbleSort(int[] array)
-        {
-            if (array.Length < 2) 
-                return array;
+        BubbleSort(array);
 
-            for (int k = 0; k < array.Length; k++)
-                for (int i = 0; i < array.Length - 1; i++)
-                    if (array[i] > array[i + 1])
-                        (array[i], array[i + 1]) = (array[i + 1], array[i]);
+        foreach (var item in array)
+            Console.Write($"{item} ");
+    }
 
+    public static int[] BubbleSort(int[] array)
+    {
+        if (array.Length < 2)
             return array;
-        }
+
+        for (int k = 0; k < array.Length; k++)
+            for (int i = 0; i < array.Length - 1; i++)
+                if (array[i] > array[i + 1])
+                    (array[i], array[i + 1]) = (array[i + 1], array[i]);
+
+        return array;
     }
 }

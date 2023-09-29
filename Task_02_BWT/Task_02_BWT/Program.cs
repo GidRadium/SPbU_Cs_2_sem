@@ -3,7 +3,7 @@ using System.Text;
 
 namespace Task_02_BWT;
 
-class BWT
+public class BWT
 {
     static void Main()
     {
@@ -27,6 +27,9 @@ class BWT
 
     public static Tuple<string, int> Encode(string input)
     {
+        if (input.Length == 0)
+            return Tuple.Create(input, -1);
+
         var size = input.Length;
         var table = new string[size];
         table[size - 1] = input;
@@ -54,6 +57,9 @@ class BWT
 
     public static string Decode(string encoded, int index)
     {
+        if (encoded.Length == 0)
+            return encoded;
+
         int size = encoded.Length;
         var table = new List<string>();
         for (int i = 0; i < size; i++)

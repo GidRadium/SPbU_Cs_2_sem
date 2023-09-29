@@ -1,57 +1,40 @@
 using Task_01_Sorting;
 
-[TestFixture]
-public class SortingTests
+public class Tests
 {
     [Test]
-    public void BubbleSort_SortsArrayInAscendingOrder()
+    public void Test1()
     {
-        // Arrange
         int[] array = { 5, 3, 1, 4, 2 };
-
-        // Act
         int[] sortedArray = Sorting.BubbleSort(array);
         
-        // Assert
         Assert.That(sortedArray, Is.EqualTo(new int[] { 1, 2, 3, 4, 5 }));
     }
 
     [Test]
-    public void BubbleSort_ReturnsEmptyArrayIfInputIsEmpty()
+    public void Test2()
     {
-        // Arrange
         int[] array = { };
-
-        // Act
         int[] sortedArray = Sorting.BubbleSort(array);
 
-        // Assert
         Assert.That(sortedArray, Is.Empty);
     }
 
     [Test]
-    public void BubbleSort_ReturnsSameArrayIfInputIsAlreadySorted()
+    public void Test3()
     {
-        // Arrange
         int[] array = { 1, 2, 3, 4, 5 };
-
-        // Act
         int[] sortedArray = Sorting.BubbleSort(array);
 
-        // Assert
         Assert.That(sortedArray, Is.EqualTo(new int[] { 1, 2, 3, 4, 5 }));
     }
 
     [Test]
-    public void BubbleSort_SortsArrayWithDuplicateValues()
+    public void Test4()
     {
-        // Arrange
         int[] array = { 5, 3, 1, 4, 2, 4 };
-
-        // Act
         int[] sortedArray = Sorting.BubbleSort(array);
 
-        // Assert
         Assert.That(sortedArray, Is.EqualTo(new int[] { 1, 2, 3, 4, 4, 5 }));
     }
 }

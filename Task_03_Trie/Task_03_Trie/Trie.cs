@@ -23,28 +23,73 @@ namespace Task_03_Trie
         }
 
         private Node Root;
-
         public int Size { get; private set; }
+        private bool ContainsEmptyString;
 
         public Trie()
         {
             this.Root = new Node();
+            this.Size = 0;
+            this.ContainsEmptyString = false;
         }
 
-        private bool AddToNode(Node node, string elementSuffix)
+        private void AddToNode(Node node, string elementSuffix)
         {
+            char symbol = elementSuffix[0];
 
+            if (!node.Children.ContainsKey(symbol))
+                node.Children.Add(symbol, new Node());
+
+            node.Children[symbol].WordsPassedNumber++;
+
+            if (elementSuffix.Length == 1)
+            {
+                node.Children[symbol].IsEndOfWord = true;
+                this.Size++;
+                return;
+            }
+
+            AddToNode(node.Children[symbol], elementSuffix.Substring(1));
         }
 
         bool Add(string element)
         {
+            if (element == null || Contains(element))
+                return false;
+
+            if (element.Length == 0) 
+                return this.ContainsEmptyString = true;
+
+            AddToNode(this.Root, element);
+            return true;
+        }
+
+        bool Contains(string element)
+        {
+            if (element == null) 
+                return false;
+            if (element.Length == 0)
+                return this.ContainsEmptyString;
+
+            Node temp = Root;
+            for (int i = 0; i < element.Length; i++)
+            {
+                if (!temp.Children.ContainsKey(element[i]))
+                    return false;
+                temp = temp.Children[element[i]];
+            }
+
+            return temp.IsEndOfWord;
+        }
+
+        bool Remove(string element)
+        {
 
         }
 
-        bool Contains(string element) { }
+        int HowManyStartsWithPrefix(string prefix)
+        {
 
-        bool Remove(string element) { }
-
-        int HowManyStartsWithPrefix(string prefix) { }
+        }
     }
 }

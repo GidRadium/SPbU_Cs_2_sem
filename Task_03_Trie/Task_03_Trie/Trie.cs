@@ -34,25 +34,6 @@ namespace Task_03_Trie
             this.ContainsEmptyString = false;
         }
 
-        private void AddToNode(Node node, string elementSuffix)
-        {
-            char symbol = elementSuffix[0];
-
-            if (!node.Children.ContainsKey(symbol))
-                node.Children.Add(symbol, new Node());
-
-            node.Children[symbol].WordsPassedNumber++;
-
-            if (elementSuffix.Length == 1)
-            {
-                node.Children[symbol].IsEndOfWord = true;
-                this.Size++;
-                return;
-            }
-
-            AddToNode(node.Children[symbol], elementSuffix.Substring(1));
-        } // Can be not recursive
-
         bool Add(string element)
         {
             if (element == null || Contains(element))
@@ -61,7 +42,18 @@ namespace Task_03_Trie
             if (element.Length == 0) 
                 return this.ContainsEmptyString = true;
 
-            AddToNode(this.Root, element);
+            Node temp = this.Root;
+            for (int i = 0; i < element.Length; i++)
+            {
+                if (!temp.Children.ContainsKey(element[i]))
+                    temp.Children.Add(element[i], new Node());
+                temp = temp.Children[element[i]];
+                temp.WordsPassedNumber++;
+            }
+
+            temp.IsEndOfWord = true;
+            this.Size++;
+
             return true;
         }
 

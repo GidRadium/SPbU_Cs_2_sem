@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Task_03_Trie
 {
@@ -50,7 +51,7 @@ namespace Task_03_Trie
             }
 
             AddToNode(node.Children[symbol], elementSuffix.Substring(1));
-        }
+        } // Can be not recursive
 
         bool Add(string element)
         {
@@ -71,7 +72,7 @@ namespace Task_03_Trie
             if (element.Length == 0)
                 return this.ContainsEmptyString;
 
-            Node temp = Root;
+            Node temp = this.Root;
             for (int i = 0; i < element.Length; i++)
             {
                 if (!temp.Children.ContainsKey(element[i]))
@@ -84,12 +85,51 @@ namespace Task_03_Trie
 
         bool Remove(string element)
         {
+            if (element == null || !Contains(element))
+                return false;
 
+            if (element.Length == 0)
+            {
+                this.ContainsEmptyString = false;
+                this.Size--;
+                return true;
+            }
+
+            this.Size--;
+            Node temp = this.Root;
+            for (int i = 0; i < element.Length; i++)
+            {
+                if (temp.Children[element[i]].WordsPassedNumber == 1)
+                {
+                    temp.Children.Remove(element[i]);
+                    return true;
+                }
+
+                temp = temp.Children[element[i]];
+                temp.WordsPassedNumber--;
+            }
+
+            temp.IsEndOfWord = false;
+
+            return true;
         }
 
         int HowManyStartsWithPrefix(string prefix)
         {
+            if (prefix == null)
+                return 0;
+            if (prefix.Length == 0)
+                return this.ContainsEmptyString ? 1 : 0;
 
+            Node temp = this.Root;
+            for (int i = 0; i < prefix.Length; i++)
+            {
+                if (!temp.Children.ContainsKey(prefix[i]))
+                    return 0;
+                temp = temp.Children[prefix[i]];
+            }
+
+            return temp.WordsPassedNumber;
         }
     }
 }

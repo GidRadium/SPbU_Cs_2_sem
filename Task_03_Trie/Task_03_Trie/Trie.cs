@@ -7,7 +7,7 @@ using System.Xml.Linq;
 
 namespace Task_03_Trie
 {
-    internal class Trie
+    public class Trie
     {
         private class Node
         {
@@ -34,7 +34,7 @@ namespace Task_03_Trie
             this.ContainsEmptyString = false;
         }
 
-        bool Add(string element)
+        public bool Add(string element)
         {
             if (element == null || Contains(element))
                 return false;
@@ -57,7 +57,7 @@ namespace Task_03_Trie
             return true;
         }
 
-        bool Contains(string element)
+        public bool Contains(string element)
         {
             if (element == null) 
                 return false;
@@ -75,7 +75,7 @@ namespace Task_03_Trie
             return temp.IsEndOfWord;
         }
 
-        bool Remove(string element)
+        public bool Remove(string element)
         {
             if (element == null || !Contains(element))
                 return false;
@@ -106,7 +106,7 @@ namespace Task_03_Trie
             return true;
         }
 
-        int HowManyStartsWithPrefix(string prefix)
+        public int HowManyStartsWithPrefix(string prefix)
         {
             if (prefix == null)
                 return 0;

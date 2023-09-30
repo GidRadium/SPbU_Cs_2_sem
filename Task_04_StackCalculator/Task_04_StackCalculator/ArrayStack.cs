@@ -37,7 +37,7 @@ namespace Task_04_StackCalculator
         public double Top()
         {
             if (Size == 0)
-                throw new Exception("ArrayStack.Pop(): Stack is empty!");
+                throw new Exception("ArrayStack.Top(): Stack is empty!");
             return Data[Size - 1];
         }
     }

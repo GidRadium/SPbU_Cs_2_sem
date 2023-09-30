@@ -25,6 +25,7 @@ namespace Task_03_Tests
             trie.Add("Trie is the best"); //
             trie.Remove("Trie is");
             trie.Remove("?");
+            trie.Add(""); //
         }
 
         [Test]
@@ -61,6 +62,12 @@ namespace Task_03_Tests
         public void Test6()
         {
             Assert.That(trie.HowManyStartsWithPrefix("Trie "), Is.EqualTo(2));
+        }
+
+        [Test]
+        public void Test7()
+        {
+            Assert.That(trie.Size, Is.EqualTo(6));
         }
     }
 }

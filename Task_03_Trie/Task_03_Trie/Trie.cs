@@ -39,8 +39,12 @@ namespace Task_03_Trie
             if (element == null || Contains(element))
                 return false;
 
-            if (element.Length == 0) 
-                return this.ContainsEmptyString = true;
+            if (element.Length == 0)
+            {
+                this.ContainsEmptyString = true;
+                this.Size++;
+                return true;
+            }
 
             Node temp = this.Root;
             for (int i = 0; i < element.Length; i++)

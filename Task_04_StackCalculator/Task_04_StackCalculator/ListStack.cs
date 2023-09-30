@@ -12,12 +12,12 @@ namespace Task_04_StackCalculator
 
         public void Push(double value)
         {
-
+            
         }
 
         public double Pop()
         {
-
+            
         }
 
         public double Top()

@@ -38,13 +38,23 @@ namespace Task_04_StackCalculator
                         double b = this.Stack.Pop();
                         double a = this.Stack.Pop();
                         if (b > -0.000001 && b < 0.000001)
+                        {
+                            while (this.Stack.Size > 0)
+                                Stack.Pop();
                             throw new Exception("Can't devide by 0");
+                        }
+                            
                         this.Stack.Push(a / b);
                         break;
                     default:
                         double value;
                         if (!Double.TryParse(elements[i], out value))
+                        {
+                            while (this.Stack.Size > 0)
+                                Stack.Pop();
                             throw new Exception($"{elements[i]} is not double.");
+                        }
+                            
                         this.Stack.Push(value);
                         break;
                 }

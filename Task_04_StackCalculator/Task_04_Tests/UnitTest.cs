@@ -1,70 +1,49 @@
 using Task_04_StackCalculator;
 
-namespace Task_04_Tests
+public abstract class TestBase
 {
-    [TestFixture]
-    public class Tests
-    {
-        private StackCalculator arrayStackCalculator;
-        private StackCalculator listStackCalculator;
+    public StackCalculator stackCalculator;
 
-        [SetUp]
-        public void Setup()
-        {
-            this.arrayStackCalculator = new StackCalculator(new ArrayStack());
-            this.listStackCalculator = new StackCalculator(new ListStack());
-        }
+    [Test]
+    public void Test1() => Assert.That(this.stackCalculator.Solve("1 1 +") == 2, Is.True);
 
-        [Test]
-        public void TestCorrectArrayStackCalculator()
-        {
-            Assert.Multiple(() =>
-            {
-                Assert.That(this.arrayStackCalculator.Solve("1 1 +") == 2, Is.True);
-                Assert.That(this.arrayStackCalculator.Solve("9 4 2 * +") == 17, Is.True);
-                Assert.That(this.arrayStackCalculator.Solve("0 0 0 0 + * -") == 0, Is.True);
-                Assert.That(this.arrayStackCalculator.Solve("5 2 /") > 2.5 - 0.000001
-                    && this.arrayStackCalculator.Solve("5 2 /") < 2.5 + 0.000001, Is.True);
-            });
-        }
+    [Test]
+    public void Test2() => Assert.That(this.stackCalculator.Solve("9 4 2 * +") == 17, Is.True);
 
-        [Test]
-        public void TestCorrectListStackCalculator()
-        {
-            Assert.Multiple(() =>
-            {
-                Assert.That(this.listStackCalculator.Solve("1 1 +") == 2, Is.True);
-                Assert.That(this.listStackCalculator.Solve("9 4 2 * +") == 17, Is.True);
-                Assert.That(this.listStackCalculator.Solve("0 0 0 0 + * -") == 0, Is.True);
-                Assert.That(this.listStackCalculator.Solve("5 2 /") > 2.5 - 0.000001
-                    && this.listStackCalculator.Solve("5 2 /") < 2.5 + 0.000001, Is.True);
-            });
-        }
+    [Test]
+    public void Test3() => Assert.That(this.stackCalculator.Solve("0 0 0 0 + * -") == 0, Is.True);
 
-        [Test]
-        public void TestIncorrectArrayStackCalculator()
-        {
-            Assert.Multiple(() =>
-            {
-                Assert.That(() => this.arrayStackCalculator.Solve("1 0 /"), Throws.Exception);
-                Assert.That(() => this.arrayStackCalculator.Solve("1 1 1 - /"), Throws.Exception);
-                Assert.That(() => this.arrayStackCalculator.Solve("1 1 1 -"), Throws.Exception);
-                Assert.That(() => this.arrayStackCalculator.Solve("1 1 - *"), Throws.Exception);
-                Assert.That(() => this.arrayStackCalculator.Solve("1 a -"), Throws.Exception);
-            });
-        }
+    [Test]
+    public void Test4() => Assert.That(this.stackCalculator.Solve("5 2 /") > 2.5 - 0.000001
+                                    && this.stackCalculator.Solve("5 2 /") < 2.5 + 0.000001, Is.True);
 
-        [Test]
-        public void TestIncorrectListStackCalculator()
-        {
-            Assert.Multiple(() =>
-            {
-                Assert.That(() => this.arrayStackCalculator.Solve("1 0 /"), Throws.Exception);
-                Assert.That(() => this.arrayStackCalculator.Solve("1 1 1 - /"), Throws.Exception);
-                Assert.That(() => this.arrayStackCalculator.Solve("1 1 1 -"), Throws.Exception);
-                Assert.That(() => this.arrayStackCalculator.Solve("1 1 - *"), Throws.Exception);
-                Assert.That(() => this.arrayStackCalculator.Solve("1 a -"), Throws.Exception);
-            });
-        }
-    }
+    [Test]
+    public void Test5() => Assert.That(() => this.stackCalculator.Solve("1 0 /"), Throws.Exception);
+
+    [Test]
+    public void Test6() => Assert.That(() => this.stackCalculator.Solve("1 1 1 - /"), Throws.Exception);
+
+    [Test]
+    public void Test7() => Assert.That(() => this.stackCalculator.Solve("1 1 1 -"), Throws.Exception);
+
+    [Test]
+    public void Test8() => Assert.That(() => this.stackCalculator.Solve("1 1 - *"), Throws.Exception);
+
+    [Test]
+    public void Test9() => Assert.That(() => this.stackCalculator.Solve("1 a -"), Throws.Exception);
+}
+
+
+[TestFixture]
+public class TestArrayStackCalculator : TestBase
+{
+    [SetUp]
+    public void Setup() => this.stackCalculator = new StackCalculator(new ArrayStack());
+}
+
+[TestFixture]
+public class TestListStackCalculator : TestBase
+{
+    [SetUp]
+    public void Setup() => this.stackCalculator = new StackCalculator(new ListStack());
 }

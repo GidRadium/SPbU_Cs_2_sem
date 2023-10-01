@@ -51,9 +51,13 @@ namespace Task_04_StackCalculator
             }
 
             if (this.Stack.Size != 1)
+            {
+                while (this.Stack.Size > 0)
+                    Stack.Pop();
                 throw new Exception($"Expression is incorrect");
+            }
 
-            return this.Stack.Top();
+            return this.Stack.Pop();
         }
     }
 }

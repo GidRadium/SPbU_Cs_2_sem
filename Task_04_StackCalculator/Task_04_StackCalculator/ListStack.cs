@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Task_04_StackCalculator
 {
-    class ListStack : IStack
+    public class ListStack : IStack
     {
         private List<double> Data;
 
@@ -28,8 +28,10 @@ namespace Task_04_StackCalculator
         {
             if (this.Size == 0)
                 throw new Exception("ListStack.Pop(): Stack is empty!");
+
             double result = this.Data[this.Size - 1];
             this.Data.RemoveAt(this.Size - 1);
+            this.Size--;
             return result;
         }
 
@@ -37,6 +39,7 @@ namespace Task_04_StackCalculator
         {
             if (this.Size == 0)
                 throw new Exception("ListStack.Top(): Stack is empty!");
+
             return this.Data[this.Size - 1];
         }
     }

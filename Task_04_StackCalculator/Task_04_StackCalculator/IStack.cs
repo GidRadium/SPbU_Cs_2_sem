@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Task_04_StackCalculator
 {
-    interface IStack
+    public interface IStack
     {
         public int Size { get; }
 

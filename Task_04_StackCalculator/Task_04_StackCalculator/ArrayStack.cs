@@ -12,33 +12,36 @@ namespace Task_04_StackCalculator
 
         public ArrayStack()
         {
-            Data = new double[2];
-            Size = 0;
+            this.Data = new double[2];
+            this.Size = 0;
         }
 
         public int Size { get; private set; }
 
         public void Push(double value)
         {
-            if (Data.Length == Size)
-                Array.Resize(ref Data, Size * 2);
-            Data[Size] = value;
-            Size++;
+            if (this.Data.Length == this.Size)
+                Array.Resize(ref this.Data, this.Size * 2);
+
+            this.Data[this.Size] = value;
+            this.Size++;
         }
 
         public double Pop()
         {
-            if (Size == 0)
+            if (this.Size == 0)
                 throw new Exception("ArrayStack.Pop(): Stack is empty!");
-            Size--;
-            return Data[Size];
+
+            this.Size--;
+            return this.Data[this.Size];
         }
 
         public double Top()
         {
-            if (Size == 0)
+            if (this.Size == 0)
                 throw new Exception("ArrayStack.Top(): Stack is empty!");
-            return Data[Size - 1];
+
+            return this.Data[this.Size - 1];
         }
     }
 }

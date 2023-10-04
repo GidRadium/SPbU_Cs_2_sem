@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Task_05_LZW": {
+      "commandName": "Project",
+      "commandLineArgs": "\"C:\\Users\\mi\\Desktop\\English.10.09.txt\" -c"
+    }
+  }
+}

@@ -1,4 +1,4 @@
-﻿namespace Task_05_LWZ
+﻿namespace Task_05_LZW
 {
     class Program
     {
@@ -17,19 +17,23 @@
             }
 
             string option = args[1];
+            double ratio = 0;
+            string outFilePath = "";
 
             switch (option)
             {
                 case "-c":
-                    //Compress(filePath);
+                    outFilePath = LZW.Compress(filePath, ref ratio);
                     break;
                 case "-u":
-                    //Decompress(filePath);
+                    outFilePath = LZW.Decompress(filePath, ref ratio);
                     break;
                 default:
                     Console.WriteLine($"Invalid option: {option}. Available options: -c, -u");
                     return;
             }
+
+            Console.WriteLine($"Result path: {outFilePath}\nRatio: {ratio}");
         }
     }
 }

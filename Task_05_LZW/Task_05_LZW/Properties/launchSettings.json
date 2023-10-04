@@ -2,7 +2,15 @@
   "profiles": {
     "Task_05_LZW": {
       "commandName": "Project",
-      "commandLineArgs": "\"C:\\Users\\mi\\Desktop\\English.10.09.txt\" -c"
+      "commandLineArgs": "\"C:\\Users\\mi\\Desktop\\pdf\\Doc.pdf\" -c"
+    },
+    "-c": {
+      "commandName": "Project",
+      "commandLineArgs": "\"C:\\Users\\mi\\Desktop\\pdf\\Doc.pdf\" -c"
+    },
+    "-u": {
+      "commandName": "Project",
+      "commandLineArgs": "\"C:\\Users\\mi\\Desktop\\pdf\\Doc.pdf.zipped\" -u"
     }
   }
 }

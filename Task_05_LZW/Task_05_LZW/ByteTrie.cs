@@ -13,7 +13,7 @@ namespace Task_05_LZW
             public Dictionary<byte, Node> Children;
             public int WordsPassedNumber;
             public bool IsEndOfWord;
-            public int WordCode;
+            public uint WordCode;
             public Node()
             {
                 this.Children = new Dictionary<byte, Node>();
@@ -22,7 +22,7 @@ namespace Task_05_LZW
             }
         }
 
-        public int LastCode { get; private set; }
+        public uint LastCode { get; private set; }
         private Node Root;
         public int Size { get; private set; }
 
@@ -33,7 +33,7 @@ namespace Task_05_LZW
             this.Size = 0;
         }
 
-        public int Add(byte[] element)
+        public uint Add(byte[] element)
         {
             if (element == null || element.Length == 0)
                 return 0;
@@ -54,13 +54,13 @@ namespace Task_05_LZW
             }
 
             temp.IsEndOfWord = true;
-            temp.WordCode = this.LastCode++;
+            temp.WordCode = ++this.LastCode;
             this.Size++;
 
             return temp.WordCode;
         }
 
-        public int Contains(byte[] element)
+        public uint Contains(byte[] element)
         {
             if (element == null)
                 return 0;

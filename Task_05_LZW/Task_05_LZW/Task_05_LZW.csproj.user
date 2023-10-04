@@ -4,6 +4,6 @@
     <DebuggerFlavor>ProjectDebugger</DebuggerFlavor>
   </PropertyGroup>
   <PropertyGroup>
-    <ActiveDebugProfile>-u</ActiveDebugProfile>
+    <ActiveDebugProfile>-c</ActiveDebugProfile>
   </PropertyGroup>
 </Project>

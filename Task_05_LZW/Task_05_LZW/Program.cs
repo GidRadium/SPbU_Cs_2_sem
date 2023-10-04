@@ -2,6 +2,33 @@
 {
     class Program
     {
+        static string CompressFile(string filePath)
+        {
+            byte[] inputFileBytes = File.ReadAllBytes(filePath);
+            byte[] outputFileBytes = LZW.Compress(inputFileBytes);
+            var ratio = Convert.ToDouble(inputFileBytes.Length) / outputFileBytes.Length;
+
+            string compressedFilePath = filePath + ".zipped";
+            File.WriteAllBytes(compressedFilePath, outputFileBytes);
+
+            Console.WriteLine($"Ratio: {ratio}\nOutput path: {compressedFilePath}");
+            return compressedFilePath;
+        }
+
+        static string DecompressFile(string compressedFilePath)
+        {
+            byte[] compressedFileBytes = File.ReadAllBytes(compressedFilePath);
+            byte[] decompressedFileBytes = LZW.Decompress(compressedFileBytes);
+            var ratio = Convert.ToDouble(compressedFileBytes.Length) / decompressedFileBytes.Length;
+
+            string decompressedFilePath = compressedFilePath.Substring(0, compressedFilePath.Length - ".zipped".Length);
+            File.WriteAllBytes(decompressedFilePath, decompressedFileBytes);
+            
+            Console.WriteLine($"Ratio: {ratio}\nOutput path: {decompressedFilePath}");
+
+            return decompressedFilePath;
+        }
+
         static void Main(string[] args)
         {
             if (args.Length != 2)
@@ -17,23 +44,19 @@
             }
 
             string option = args[1];
-            double ratio = 0;
-            string outFilePath = "";
 
             switch (option)
             {
                 case "-c":
-                    outFilePath = LZW.Compress(filePath, ref ratio);
+                    CompressFile(filePath);
                     break;
                 case "-u":
-                    outFilePath = LZW.Decompress(filePath, ref ratio);
+                    DecompressFile(filePath);
                     break;
                 default:
                     Console.WriteLine($"Invalid option: {option}. Available options: -c, -u");
                     return;
             }
-
-            Console.WriteLine($"Result path: {outFilePath}\nRatio: {ratio}");
         }
     }
 }

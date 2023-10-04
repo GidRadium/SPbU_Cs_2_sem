@@ -39,23 +39,21 @@ namespace Task_05_LZW
             return result;
         }
 
-        public static string Compress(string filePath, ref double ratio)
-        {
-            byte[] inputFileBytes = File.ReadAllBytes(filePath);
-            
+        public static byte[] Compress(byte[] inputBytes)
+        {   
             List<byte> compressedBytesList = new List<byte>();
             ByteTrie trie = new ByteTrie();
             List<byte> currentCode = new List<byte>();
             int idMinLengthInBytes = 1;
-            for (int i = 0; i < inputFileBytes.Length; i++)
+            for (int i = 0; i < inputBytes.Length; i++)
             {
-                currentCode.Add(inputFileBytes[i]);
+                currentCode.Add(inputBytes[i]);
 
-                if (i == inputFileBytes.Length - 1)
+                if (i == inputBytes.Length - 1)
                 {
                     currentCode.RemoveAt(currentCode.Count - 1);
                     compressedBytesList.AddRange(ToBytes(trie.Contains(currentCode.ToArray()), idMinLengthInBytes));
-                    compressedBytesList.Add(inputFileBytes[i]);
+                    compressedBytesList.Add(inputBytes[i]);
                     break;
                 }
 
@@ -65,7 +63,7 @@ namespace Task_05_LZW
                     currentCode.RemoveAt(currentCode.Count - 1);
                     uint writedId = trie.Contains(currentCode.ToArray());
                     compressedBytesList.AddRange(ToBytes(writedId, idMinLengthInBytes));
-                    compressedBytesList.Add(inputFileBytes[i]);
+                    compressedBytesList.Add(inputBytes[i]);
                     currentCode.Clear();
                     
                     if (id == 255)
@@ -77,31 +75,25 @@ namespace Task_05_LZW
                 }
             }
 
-            string compressedFilePath = filePath + ".zipped";
-            File.WriteAllBytes(compressedFilePath, compressedBytesList.ToArray());
-            ratio = Convert.ToDouble(inputFileBytes.Length) / compressedBytesList.Count;
-
-            return compressedFilePath;
+            return compressedBytesList.ToArray();
         }
 
-        public static string Decompress(string compressedFilePath, ref double ratio)
+        public static byte[] Decompress(byte[] compressedBytes)
         {
-            byte[] compressedFileBytes = File.ReadAllBytes(compressedFilePath);
-            
             var decompressedBytesList = new List<byte>();
             var codes = new List<List<byte>>();
             codes.Add(new List<byte>());
             int idMinLengthInBytes = 1;
 
-            for (int i = 0; i < compressedFileBytes.Length; i++)
+            for (int i = 0; i < compressedBytes.Length; i++)
             {
                 var idList = new List<byte>();
                 for (int j = 0; j < idMinLengthInBytes; j++)
-                    idList.Add(compressedFileBytes[i + j]);
+                    idList.Add(compressedBytes[i + j]);
                 uint id = ToUint(idList);
                 i += idMinLengthInBytes;
 
-                var letter = compressedFileBytes[i];
+                var letter = compressedBytes[i];
                 codes.Add(new List<byte>());
                 codes[codes.Count - 1].AddRange(codes[(int)id]);
                 codes[codes.Count - 1].Add(letter);
@@ -115,11 +107,7 @@ namespace Task_05_LZW
                     idMinLengthInBytes = int.Max(idMinLengthInBytes, 4);
             }
 
-            string decompressedFilePath = compressedFilePath.Substring(0, compressedFilePath.Length - ".zipped".Length);
-            File.WriteAllBytes(decompressedFilePath, decompressedBytesList.ToArray());
-            ratio = Convert.ToDouble(decompressedBytesList.Count) / compressedFileBytes.Length;
-
-            return decompressedFilePath;
+            return decompressedBytesList.ToArray();
         }
     }
 }

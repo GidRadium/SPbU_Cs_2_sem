@@ -5,7 +5,11 @@
         static string CompressFile(string filePath)
         {
             byte[] inputFileBytes = File.ReadAllBytes(filePath);
+
+            Console.WriteLine("Compressing data...");
             byte[] outputFileBytes = LZW.Compress(inputFileBytes);
+            Console.WriteLine("Done!");
+
             var ratio = Convert.ToDouble(inputFileBytes.Length) / outputFileBytes.Length;
 
             string compressedFilePath = filePath + ".zipped";
@@ -18,7 +22,11 @@
         static string DecompressFile(string compressedFilePath)
         {
             byte[] compressedFileBytes = File.ReadAllBytes(compressedFilePath);
+
+            Console.WriteLine("Decompressing data...");
             byte[] decompressedFileBytes = LZW.Decompress(compressedFileBytes);
+            Console.WriteLine("Done!");
+
             var ratio = Convert.ToDouble(compressedFileBytes.Length) / decompressedFileBytes.Length;
 
             string decompressedFilePath = compressedFilePath.Substring(0, compressedFilePath.Length - ".zipped".Length);
@@ -33,13 +41,13 @@
         {
             if (args.Length != 2)
             {
-                Console.WriteLine("Invalid number of command line arguments.");
+                Console.WriteLine("ERROR: Invalid number of command line arguments.");
                 return;
             }
 
             string filePath = Path.GetFullPath(args[0]);
             if (!File.Exists(filePath)) {
-                Console.WriteLine($"File {filePath} does not exist.");
+                Console.WriteLine($"ERROR: File {filePath} does not exist.");
                 return;
             }
 
@@ -51,10 +59,23 @@
                     CompressFile(filePath);
                     break;
                 case "-u":
-                    DecompressFile(filePath);
+                    if (!filePath.EndsWith(".zipped"))
+                    {
+                        Console.WriteLine("ERROR: File must have .zipped extension to be decompressed.");
+                        return;
+                    }
+                    try
+                    {
+                        DecompressFile(filePath);
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine($"ERROR: Can't decompress this file.\n{e.Message}");
+                        return;
+                    }
                     break;
                 default:
-                    Console.WriteLine($"Invalid option: {option}. Available options: -c, -u");
+                    Console.WriteLine($"ERROR: Invalid option: {option}. Available options: -c, -u");
                     return;
             }
         }

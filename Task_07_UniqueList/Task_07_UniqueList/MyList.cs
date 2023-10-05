@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Task_07_UniqueList;
-internal class MyList
+public class MyList
 {
     public int Size { get; private set; }
 

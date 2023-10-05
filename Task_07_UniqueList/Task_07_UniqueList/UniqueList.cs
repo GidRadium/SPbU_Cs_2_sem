@@ -6,12 +6,14 @@ using System.Threading.Tasks;
 
 namespace Task_07_UniqueList;
 
-internal class UniqueList : MyList
+public class AddRepeatingElementToUniqueListException : ArgumentException { };
+
+public class UniqueList : MyList
 {
     public override void AddValue(int value, int index)
     {
         if (base.Contains(value))
-            throw new ArgumentException();
+            throw new AddRepeatingElementToUniqueListException();
 
         base.AddValue(value, index);
     }
@@ -22,13 +24,9 @@ internal class UniqueList : MyList
         if (i >= 0)
         {
             if (i != index)
-            {
-                throw new ArgumentException();
-            }
+                throw new AddRepeatingElementToUniqueListException();
             else
-            {
                 return;
-            }
         }
 
         base.SetValue(value, index);

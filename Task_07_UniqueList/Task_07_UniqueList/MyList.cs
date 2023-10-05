@@ -95,11 +95,19 @@ internal class MyList
 
     public bool Contains(int value)
     {
+        return FindIndexByValue(value) >= 0;
+    }
+
+    public int FindIndexByValue(int value)
+    {
         var temp = this.Root;
         for (int i = 0; i < this.Size; i++)
-            if (temp.Value == value) 
-                return true;
+        {
+            if (temp.Value == value)
+                return i;
+            temp = temp.Next;
+        }
 
-        return false;
+        return -1;
     }
 }

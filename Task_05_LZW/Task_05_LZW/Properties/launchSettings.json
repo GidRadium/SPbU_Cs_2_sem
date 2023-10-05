@@ -1,16 +1,15 @@
 {
   "profiles": {
     "Task_05_LZW": {
-      "commandName": "Project",
-      "commandLineArgs": "\"C:\\Users\\mi\\Desktop\\pdf\\Doc.pdf\" -c"
+      "commandName": "Project"
     },
     "-c": {
       "commandName": "Project",
-      "commandLineArgs": "\"C:\\Users\\mi\\Desktop\\pdf\\Doc.pdf\" -c"
+      "commandLineArgs": "\"../../../TestFiles/russian_nouns_with_definition.txt\" -c"
     },
     "-u": {
       "commandName": "Project",
-      "commandLineArgs": "\"C:\\Users\\mi\\Desktop\\pdf\\Doc.pdf.zipped\" -u"
+      "commandLineArgs": "\"../../../TestFiles/russian_nouns_with_definition.txt.zipped\" -u"
     }
   }
 }

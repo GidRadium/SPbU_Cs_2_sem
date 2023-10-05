@@ -55,7 +55,7 @@ public class MyList
             throw new ArgumentOutOfRangeException();
 
         var temp = this.Root;
-        for (int i = 0; i < this.Size; i++)
+        for (int i = 0; i < index; i++)
             temp = temp.Next;
 
         return temp.Value;

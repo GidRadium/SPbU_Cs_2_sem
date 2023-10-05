@@ -41,7 +41,7 @@ internal class MyList
         }
 
         var temp = this.Root;
-        for (int i = 0; i < this.Size; i++)
+        for (int i = 0; i < index - 1; i++)
             temp = temp.Next;
 
         node.Next = temp.Next;
@@ -51,21 +51,55 @@ internal class MyList
 
     public int GetValue(int index)
     {
-        return 0;
+        if (index < 0 || index > this.Size - 1)
+            throw new ArgumentOutOfRangeException();
+
+        var temp = this.Root;
+        for (int i = 0; i < this.Size; i++)
+            temp = temp.Next;
+
+        return temp.Value;
     }
 
     public virtual void SetValue(int value, int index)
     {
+        if (index < 0 || index > this.Size - 1)
+            throw new ArgumentOutOfRangeException();
 
+        var temp = this.Root;
+        for (int i = 0; i < index; i++)
+            temp = temp.Next;
+
+        temp.Value = value;
     }
 
     public virtual void DeleteValue(int index)
     {
+        if (index < 0 || index > this.Size - 1)
+            throw new ArgumentOutOfRangeException();
 
+        if (index == 0)
+        {
+            this.Root = this.Root.Next;
+            this.Size--;
+            return;
+        }
+
+        var temp = this.Root;
+        for (int i = 0; i < index; i++)
+            temp = temp.Next;
+
+        temp.Next = temp.Next.Next;
+        this.Size--;
     }
 
     public bool Contains(int value)
     {
+        var temp = this.Root;
+        for (int i = 0; i < this.Size; i++)
+            if (temp.Value == value) 
+                return true;
+
         return false;
     }
 }

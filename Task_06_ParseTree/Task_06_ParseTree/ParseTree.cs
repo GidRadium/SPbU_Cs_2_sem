@@ -5,20 +5,23 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Task_06_ParseTree;
+
+public class IncorrectExpressionException : Exception { }
+
 internal class ParseTree
 {
     private class Operation
     {
-        private string OperationAsString;
-        public Operation(string operationAsString) 
+        private char OperationAsChar;
+        public Operation(char operationAsChar) 
         {
-            switch (operationAsString)
+            switch (operationAsChar)
             {
-                case "+":
-                case "-":
-                case "*":
-                case "/":
-                    this.OperationAsString = operationAsString;
+                case '+':
+                case '-':
+                case '*':
+                case '/':
+                    this.OperationAsChar = operationAsChar;
                     break;
                 default:
                     throw new ArgumentException();
@@ -27,15 +30,15 @@ internal class ParseTree
 
         public double Count(double operand1, double operand2)
         {
-            switch (OperationAsString)
+            switch (this.OperationAsChar)
             {
-                case "+":
+                case '+':
                     return operand1 + operand2;
-                case "-":
+                case '-':
                     return operand1 - operand2;
-                case "*":
+                case '*':
                     return operand1 * operand2;
-                case "/":
+                case '/':
                     if (operand2 > -0.0000001 && operand2 < 0.0000001)
                         throw new DivideByZeroException();
                     return operand1 / operand2;
@@ -46,7 +49,7 @@ internal class ParseTree
 
         public override string ToString()
         {
-            return this.OperationAsString;
+            return this.OperationAsChar.ToString();
         }
     }
 
@@ -56,7 +59,7 @@ internal class ParseTree
         Node? Operand1;
         Node? Operand2;
         bool IsLeaf = false;
-        int Value;
+        int Value = 0;
 
         public Node(string expression)
         {
@@ -69,19 +72,59 @@ internal class ParseTree
                 return;
             }
 
-            //if () TODO
+            if (expression[0] != '(' || expression[2] != ' ' || expression[expression.Length - 1] != ')')
+                throw new IncorrectExpressionException();
+
+            try
+            {
+                this.ExpressionOperation = new Operation(expression[1]);
+            }
+            catch(ArgumentException)
+            {
+                throw new IncorrectExpressionException();
+            }
+
+            int count = 0;
+            if (expression[3] == '(')
+            {
+                for (int i = 3; i < expression.Length - 1; i++)
+                {
+                    if (expression[i] == '(') count++;
+                    if (expression[i] == ')') count--;
+                    if (count == 0)
+                    {
+                        this.Operand1 = new Node(expression.Substring(3, i - 2));
+                        this.Operand2 = new Node(expression.Substring(i + 2, expression.Length - i - 3));
+                        return;
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 3; i < expression.Length - 1; i++)
+                {
+                    if (expression[i] == ' ')
+                    {
+                        this.Operand1 = new Node(expression.Substring(3, i - 3));
+                        this.Operand2 = new Node(expression.Substring(i + 1, expression.Length - i - 2));
+                        return;
+                    }
+                }
+            }
+            
+            throw new IncorrectExpressionException();
         }
 
         public override string ToString()
         {
             if (this.IsLeaf)
                 return this.Value.ToString();
-            return $"({this.ExpressionOperation.ToString()} {this.Operand1.ToString()} {this.Operand2.ToString()})";
+            return $"({this.ExpressionOperation} {this.Operand1} {this.Operand2})";
         }
 
         public double Calculate()
         {
-            if (IsLeaf)
+            if (this.IsLeaf)
                 return (double)this.Value;
             return this.ExpressionOperation.Count(this.Operand1.Calculate(), this.Operand2.Calculate());
         }

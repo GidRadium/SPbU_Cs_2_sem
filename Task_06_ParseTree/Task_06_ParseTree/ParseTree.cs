@@ -8,7 +8,7 @@ namespace Task_06_ParseTree;
 
 public class IncorrectExpressionException : Exception { }
 
-internal class ParseTree
+public class ParseTree
 {
     private class Operation
     {
@@ -72,7 +72,7 @@ internal class ParseTree
                 return;
             }
 
-            if (expression[0] != '(' || expression[2] != ' ' || expression[expression.Length - 1] != ')')
+            if (expression.Length < "(+ 1 1)".Length || expression[0] != '(' || expression[2] != ' ' || expression[expression.Length - 1] != ')')
                 throw new IncorrectExpressionException();
 
             try

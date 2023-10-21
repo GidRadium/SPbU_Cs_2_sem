@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Task_01_Sorting\Task_01_Sorting.csproj" />
+    <ProjectReference Include="..\Task01Sorting\Task01Sorting.csproj" />
   </ItemGroup>
 
 </Project>

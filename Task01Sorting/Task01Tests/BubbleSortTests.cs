@@ -1,9 +1,9 @@
-using Task_01_Sorting;
+using Task01Sorting;
 
-public class Tests
+public class BubbleSortTests
 {
     [Test]
-    public void Test1()
+    public void BubbleSortStandartArrayReturnsSortedArray()
     {
         int[] array = { 5, 3, 1, 4, 2 };
         int[] sortedArray = Sorting.BubbleSort(array);
@@ -12,7 +12,7 @@ public class Tests
     }
 
     [Test]
-    public void Test2()
+    public void BubbleSortEmptyArrayReturnsEmptyArray()
     {
         int[] array = { };
         int[] sortedArray = Sorting.BubbleSort(array);
@@ -21,7 +21,7 @@ public class Tests
     }
 
     [Test]
-    public void Test3()
+    public void BubbleSortSortedArrayReturnsSortedArray()
     {
         int[] array = { 1, 2, 3, 4, 5 };
         int[] sortedArray = Sorting.BubbleSort(array);
@@ -30,7 +30,7 @@ public class Tests
     }
 
     [Test]
-    public void Test4()
+    public void BubbleSortDublicatedArrayElementsReturnsSortedArray()
     {
         int[] array = { 5, 3, 1, 4, 2, 4 };
         int[] sortedArray = Sorting.BubbleSort(array);

@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Task_02_BWT\Task_02_BWT.csproj" />
+    <ProjectReference Include="..\Task02BurrowsWheelerTransform\Task02BurrowsWheelerTransform.csproj" />
   </ItemGroup>
 
 </Project>

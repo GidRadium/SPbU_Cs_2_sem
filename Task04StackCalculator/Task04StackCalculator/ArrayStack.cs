@@ -1,47 +1,37 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace Task04StackCalculator;
 
-namespace Task_04_StackCalculator
+public class ArrayStack : IStack
 {
-    public class ArrayStack : IStack
+    private double[] data;
+
+    public ArrayStack()
+        => this.data = new double[2];
+
+    public int Size { get; private set; }
+
+    public void Push(double value)
     {
-        private double[] Data;
+        if (this.data.Length == this.Size)
+            Array.Resize(ref this.data, this.Size * 2);
 
-        public ArrayStack()
-        {
-            this.Data = new double[2];
-            this.Size = 0;
-        }
+        this.data[this.Size] = value;
+        this.Size++;
+    }
 
-        public int Size { get; private set; }
+    public double Pop()
+    {
+        if (this.Size == 0)
+            throw new Exception("ArrayStack.Pop(): Stack is empty!");
 
-        public void Push(double value)
-        {
-            if (this.Data.Length == this.Size)
-                Array.Resize(ref this.Data, this.Size * 2);
+        this.Size--;
+        return this.data[this.Size];
+    }
 
-            this.Data[this.Size] = value;
-            this.Size++;
-        }
+    public double Top()
+    {
+        if (this.Size == 0)
+            throw new Exception("ArrayStack.Top(): Stack is empty!");
 
-        public double Pop()
-        {
-            if (this.Size == 0)
-                throw new Exception("ArrayStack.Pop(): Stack is empty!");
-
-            this.Size--;
-            return this.Data[this.Size];
-        }
-
-        public double Top()
-        {
-            if (this.Size == 0)
-                throw new Exception("ArrayStack.Top(): Stack is empty!");
-
-            return this.Data[this.Size - 1];
-        }
+        return this.data[this.Size - 1];
     }
 }

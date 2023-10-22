@@ -1,46 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace Task04StackCalculator;
 
-namespace Task_04_StackCalculator
+public class ListStack : IStack
 {
-    public class ListStack : IStack
+    private List<double> data;
+
+    public ListStack()
+        => this.data = new List<double>();
+
+    public int Size { get; private set; }
+
+    public void Push(double value)
     {
-        private List<double> Data;
+        this.data.Add(value);
+        this.Size++;
+    }
 
-        public ListStack()
-        {
-            this.Data = new List<double>();
-            this.Size = 0;
-        }
+    public double Pop()
+    {
+        if (this.Size == 0)
+            throw new Exception("ListStack.Pop(): Stack is empty!");
 
-        public int Size { get; private set; }
+        double result = this.data[this.Size - 1];
+        this.data.RemoveAt(this.Size - 1);
+        this.Size--;
+        return result;
+    }
 
-        public void Push(double value)
-        {
-            this.Data.Add(value);
-            this.Size++;
-        }
+    public double Top()
+    {
+        if (this.Size == 0)
+            throw new Exception("ListStack.Top(): Stack is empty!");
 
-        public double Pop()
-        {
-            if (this.Size == 0)
-                throw new Exception("ListStack.Pop(): Stack is empty!");
-
-            double result = this.Data[this.Size - 1];
-            this.Data.RemoveAt(this.Size - 1);
-            this.Size--;
-            return result;
-        }
-
-        public double Top()
-        {
-            if (this.Size == 0)
-                throw new Exception("ListStack.Top(): Stack is empty!");
-
-            return this.Data[this.Size - 1];
-        }
+        return this.data[this.Size - 1];
     }
 }

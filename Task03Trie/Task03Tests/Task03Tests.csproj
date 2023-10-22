@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Task_03_Trie\Task_03_Trie.csproj" />
+    <ProjectReference Include="..\Task03Trie\Task03Trie.csproj" />
   </ItemGroup>
 
 </Project>

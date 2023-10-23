@@ -12,38 +12,38 @@ public class StackCalculatorTests
         };
 
     [TestCaseSource(nameof(Calculators))]
-    public void Test1(StackCalculator stackCalculator)
+    public void StackCalculatorOnePlusOneReturnsTwo(StackCalculator stackCalculator)
         => Assert.That(stackCalculator.Solve("1 1 +"), Is.EqualTo(2));
 
     [TestCaseSource(nameof(Calculators))]
-    public void Test2(StackCalculator stackCalculator)
+    public void StackCalculatorStandartStringReturnsSeventeen(StackCalculator stackCalculator)
         => Assert.That(stackCalculator.Solve("9 4 2 * +"), Is.EqualTo(17));
 
     [TestCaseSource(nameof(Calculators))]
-    public void Test3(StackCalculator stackCalculator)
+    public void StackCalculatorZeroesReturnsZero(StackCalculator stackCalculator)
         => Assert.That(stackCalculator.Solve("0 0 0 0 + * -"), Is.EqualTo(0));
 
     [TestCaseSource(nameof(Calculators))]
-    public void Test4(StackCalculator stackCalculator)
+    public void StackCalculatorDivisionIsCorrect(StackCalculator stackCalculator)
         => Assert.That(stackCalculator.Solve("5 2 /"), Is.EqualTo(2.5).Within(StackCalculator.Delta));
 
     [TestCaseSource(nameof(Calculators))]
-    public void Test5(StackCalculator stackCalculator)
+    public void StackCalculatorDivisionByZeroReturnsException1(StackCalculator stackCalculator)
         => Assert.That(() => stackCalculator.Solve("1 0 /"), Throws.Exception);
 
     [TestCaseSource(nameof(Calculators))]
-    public void Test6(StackCalculator stackCalculator)
+    public void StackCalculatorDivisionByZeroReturnsException2(StackCalculator stackCalculator)
         => Assert.That(() => stackCalculator.Solve("1 1 1 - /"), Throws.Exception);
 
     [TestCaseSource(nameof(Calculators))]
-    public void Test7(StackCalculator stackCalculator)
+    public void StackCalculatorIncorrectStringReturnsException1(StackCalculator stackCalculator)
         => Assert.That(() => stackCalculator.Solve("1 1 1 -"), Throws.Exception);
 
     [TestCaseSource(nameof(Calculators))]
-    public void Test8(StackCalculator stackCalculator)
+    public void StackCalculatorIncorrectStringReturnsException2(StackCalculator stackCalculator)
         => Assert.That(() => stackCalculator.Solve("1 1 - *"), Throws.Exception);
 
     [TestCaseSource(nameof(Calculators))]
-    public void Test9(StackCalculator stackCalculator)
+    public void StackCalculatorIncorrectStringReturnsException3(StackCalculator stackCalculator)
         => Assert.That(() => stackCalculator.Solve("1 a -"), Throws.Exception);
 }

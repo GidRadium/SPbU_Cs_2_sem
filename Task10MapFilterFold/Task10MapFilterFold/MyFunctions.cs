@@ -1,6 +1,6 @@
 ﻿namespace Task10MapFilterFold;
 
-public class MyFunctions
+static public class MyFunctions
 {
     public static List<TOut> Map<TIn, TOut>(List<TIn> list, Func<TIn, TOut> mapFunction)
     {

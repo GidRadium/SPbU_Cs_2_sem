@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Task_06_ParseTree;
+﻿namespace Task06ParseTree;
 
 public class IncorrectExpressionException : Exception { }
 
@@ -12,7 +6,7 @@ public class ParseTree
 {
     private class Operation
     {
-        private char OperationAsChar;
+        private char operationAsChar;
         public Operation(char operationAsChar) 
         {
             switch (operationAsChar)
@@ -21,7 +15,7 @@ public class ParseTree
                 case '-':
                 case '*':
                 case '/':
-                    this.OperationAsChar = operationAsChar;
+                    this.operationAsChar = operationAsChar;
                     break;
                 default:
                     throw new ArgumentException();
@@ -30,7 +24,7 @@ public class ParseTree
 
         public double Count(double operand1, double operand2)
         {
-            switch (this.OperationAsChar)
+            switch (this.operationAsChar)
             {
                 case '+':
                     return operand1 + operand2;
@@ -49,22 +43,24 @@ public class ParseTree
 
         public override string ToString()
         {
-            return this.OperationAsChar.ToString();
+            return this.operationAsChar.ToString();
         }
     }
 
     private class Node
     {
-        Operation? ExpressionOperation;
-        Node? Operand1;
-        Node? Operand2;
-        bool IsLeaf = false;
-        int Value = 0;
+        internal Operation? ExpressionOperation { get; set; }
+        internal Node? Operand1 { get; set; }
+        internal Node? Operand2 { get; set; }
+        internal bool IsLeaf { get; set; }
+        internal int Value { get; set; }
 
         public Node(string expression)
         {
-            if (int.TryParse(expression, out this.Value))
+            int value;
+            if (int.TryParse(expression, out value))
             {
+                this.Value = value;
                 this.IsLeaf = true;
                 this.Operand1 = null;
                 this.Operand2 = null;
@@ -130,20 +126,20 @@ public class ParseTree
         }
     }
 
-    private Node Root;
+    private Node root;
 
     public ParseTree(string expression)
     {
-        this.Root = new Node(expression);
+        this.root = new Node(expression);
     }
 
     public double Calculate()
     {
-        return this.Root.Calculate();
+        return this.root.Calculate();
     }
 
     public override string ToString()
     {
-        return this.Root.ToString();
+        return this.root.ToString();
     }
 }

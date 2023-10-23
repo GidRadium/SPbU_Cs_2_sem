@@ -1,14 +1,20 @@
 ﻿using Task11Game;
 
 var eventLoop = new EventLoop();
-var game = new Game();
+Game game;
+try
+{
+    game = new Game("..\\..\\..\\Fields\\MainField.txt");
+}
+catch (FileNotFoundException ex)
+{
+    Console.WriteLine(ex.Message);
+    return;
+}
 
 eventLoop.LeftHandler += game.OnLeft;
 eventLoop.RightHandler += game.OnRight;
 eventLoop.UpHandler += game.OnUp;
 eventLoop.DownHandler += game.OnDown;
 
-var log = new List<string>();
-eventLoop.LeftHandler += (sender, eventArgs) => log.Add("left");
-eventLoop.RightHandler += (sender, eventArgs) => log.Add("right");
 eventLoop.Run();

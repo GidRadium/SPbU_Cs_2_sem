@@ -1,10 +1,9 @@
 ﻿using Task11Game;
 
-var eventLoop = new EventLoop();
-Game game;
+Field field;
 try
 {
-    game = new Game("..\\..\\..\\Fields\\MainField.txt");
+    field = new Field("..\\..\\..\\Fields\\MainField.txt");
 }
 catch (FileNotFoundException ex)
 {
@@ -12,6 +11,9 @@ catch (FileNotFoundException ex)
     return;
 }
 
+var game = new Game(field);
+
+var eventLoop = new EventLoop();
 eventLoop.LeftHandler += game.OnLeft;
 eventLoop.RightHandler += game.OnRight;
 eventLoop.UpHandler += game.OnUp;

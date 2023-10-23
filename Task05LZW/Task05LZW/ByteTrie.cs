@@ -4,10 +4,10 @@ internal class ByteTrie
 {
     private class Node
     {
-        public Dictionary<byte, Node> Children;
-        public int WordsPassedNumber;
-        public bool IsEndOfWord;
-        public uint WordCode;
+        internal Dictionary<byte, Node> Children { get; set; }
+        internal int WordsPassedNumber { get; set; }
+        internal bool IsEndOfWord { get; set; }
+        internal uint WordCode { get; set; }
         public Node()
         {
             this.Children = new Dictionary<byte, Node>();
@@ -17,13 +17,13 @@ internal class ByteTrie
     }
 
     public uint LastCode { get; private set; }
-    private Node Root;
+    private Node root;
     public int Size { get; private set; }
 
     public ByteTrie()
     {
         this.LastCode = 0;
-        this.Root = new Node();
+        this.root = new Node();
         this.Size = 0;
     }
 
@@ -38,7 +38,7 @@ internal class ByteTrie
         }
 
 
-        Node temp = this.Root;
+        Node temp = this.root;
         for (int i = 0; i < element.Length; i++)
         {
             if (!temp.Children.ContainsKey(element[i]))
@@ -61,7 +61,7 @@ internal class ByteTrie
         if (element.Length == 0)
             return 0;
 
-        Node temp = this.Root;
+        Node temp = this.root;
         for (int i = 0; i < element.Length; i++)
         {
             if (!temp.Children.ContainsKey(element[i]))

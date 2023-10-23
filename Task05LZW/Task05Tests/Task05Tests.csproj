@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Task_05_LZW\Task_05_LZW.csproj" />
+    <ProjectReference Include="..\Task05LZW\Task05LZW.csproj" />
   </ItemGroup>
 
 </Project>

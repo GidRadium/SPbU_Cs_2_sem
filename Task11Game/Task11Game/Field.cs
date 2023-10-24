@@ -13,15 +13,25 @@ public class Field
 
         string[] lines = File.ReadAllLines(fileWithFieldPath);
 
-        Size = (lines[0].Length, lines.Length);
+        int maxLineLength = 0;
+        foreach (var line in lines)
+            maxLineLength = Math.Max(maxLineLength, line.Length);
+
+        Size = (maxLineLength, lines.Length);
         Data = new char[Size.w, Size.h];
 
         for (int i = 0; i < Size.w; i++)
         {
             for (int j = 0; j < Size.h; j++)
             {
-                Data[i, j] = lines[j][i];
-                if (Data[i, j] == '@')
+                if (lines[j].Length <= i)
+                {
+                    Data[i, j] = '#';
+                    continue;
+                }
+                
+                Data[i, j] = (lines[j][i] == '#' ? '#' : ' ');
+                if (lines[j][i] == '@')
                     PlayerPosition = (i, j);
             }
         }

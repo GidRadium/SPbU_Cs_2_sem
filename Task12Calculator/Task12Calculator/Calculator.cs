@@ -22,7 +22,7 @@
         private string operandBuffer;
         private Operation operationBetweenOperands;
         private State state;
-        public string Result { get; private set; }
+        public string Result { get; set; }
 
         public string EnterNumber(int number)
         {
@@ -36,6 +36,7 @@
                 case State.AfterEquals:
                     this.operandBuffer = number.ToString();
                     this.Result = number.ToString();
+                    this.state = State.SettingOperand1;
                     break;
             }
 
@@ -78,7 +79,7 @@
 
         public string EnterOperation(Operation operation)
         {
-            if (operandBuffer.Length == 0)
+            if (operandBuffer.Length == 0 && this.state != State.AfterEquals)
                 return this.Result;
 
             State tempState = this.state;

@@ -16,5 +16,15 @@ namespace Task12Calculator
         {
             InitializeComponent();
         }
+
+        private void OnButton1Click(object sender, EventArgs e)
+        {
+            this.Text = "Ololo";
+        }
+
+        private void OnButton1MouseEnter(object sender, EventArgs e)
+        {
+            button1.BackColor = Color.Red;
+        }
     }
 }

@@ -1,8 +1,8 @@
 ﻿namespace Task12Calculator
 {
-    internal class Calculator
+    public class Calculator
     {
-        public enum State
+        private enum State
         {
             SettingOperand1,
             SettingOperand2,
@@ -22,7 +22,7 @@
         private string operandBuffer;
         private Operation operationBetweenOperands;
         private State state;
-        public string Result { get; set; }
+        public string Result { get; private set; }
 
         public string EnterNumber(int number)
         {

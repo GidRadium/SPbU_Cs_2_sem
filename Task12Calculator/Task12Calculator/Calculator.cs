@@ -35,8 +35,8 @@
                     break;
                 case State.AfterEquals:
                     this.operandBuffer = number.ToString();
-                    this.Result = number.ToString();
                     this.state = State.SettingOperand1;
+                    this.Result = number.ToString();
                     break;
             }
 
@@ -73,7 +73,7 @@
                 case Operation.Divide:
                     return "/";
                 default:
-                    return " ";
+                    return "?";
             }
         }
 
@@ -96,9 +96,8 @@
                     this.operand2 = double.Parse(this.operandBuffer);
                     this.operandBuffer = "";
                     // TODO check divide by 0
-                    double result = this.Calculate(operand1, operand2, this.operationBetweenOperands);
+                    this.operand1 = this.Calculate(operand1, operand2, this.operationBetweenOperands);
                     this.operationBetweenOperands = operation;
-                    this.operand1 = result;
                     this.Result = $"{this.operand1} {this.OperationToString(operation)} ";
                     break;
                 case State.AfterEquals:
@@ -113,8 +112,8 @@
         public string Clear()
         {
             this.operandBuffer = "";
-            this.Result = "";
             this.state = State.SettingOperand1;
+            this.Result = "";
             return this.Result;
         }
 
@@ -122,10 +121,10 @@
         {
             this.operand2 = double.Parse(this.operandBuffer);
             this.operandBuffer = "";
-            double result = this.Calculate(operand1, operand2, this.operationBetweenOperands);
-            this.operand1 = result;
-            this.Result = this.operand1.ToString();
+            // TODO check divide by 0
+            this.operand1 = this.Calculate(operand1, operand2, this.operationBetweenOperands);
             this.state = State.AfterEquals;
+            this.Result = this.operand1.ToString();
             return this.Result;
         }
     }

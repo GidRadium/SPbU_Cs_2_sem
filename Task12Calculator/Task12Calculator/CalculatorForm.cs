@@ -26,11 +26,6 @@ namespace Task12Calculator
             // TODO data binding для отображения результатов вычисления
         }
 
-        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
         private void OnButton1Click(object sender, EventArgs e)
         {
             ResultLabel.Text = calculator.EnterNumber(1);

@@ -7,8 +7,37 @@ using System.Threading.Tasks;
 
 namespace Task13SkipList;
 
-public class SkipList<T> : IList<T>
+public class SkipList<T> : IList<T> where T : IComparable<T>
 {
+    private int maxLevel = 16;
+    private double probability = 0.5;
+    private class Node<TValue>
+    {
+        public int Key { get; set; }
+        public TValue Value { get; set; }
+        public Node<TValue>[] Next { get; set; }
+        
+        public Node(int key, TValue value, int nodeLevel)
+        {
+            this.Key = key;
+            this.Value = value;
+            this.Next = new Node<TValue>[nodeLevel];
+        }
+    }
+
+    private Node<T> root;
+    private Node<T> nil;
+    
+    public SkipList()
+    {
+        this.root = new Node<T>(-1, default(T), this.maxLevel);
+        this.nil = new Node<T>(int.MaxValue, default(T), this.maxLevel);
+
+        for (int i = 0; i < this.maxLevel; i++)
+            this.root.Next[i] = this.nil;
+    }
+
+
     public T this[int index] { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
     public int Count => throw new NotImplementedException();
@@ -64,4 +93,6 @@ public class SkipList<T> : IList<T>
     {
         throw new NotImplementedException();
     }
+
+    
 }

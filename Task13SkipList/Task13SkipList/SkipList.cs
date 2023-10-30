@@ -43,7 +43,7 @@ public class SkipList<T> : IList<T>
     public T this[int index] {
         get
         {
-            if ((uint)index >= (uint)this.Count)
+            if (index < 0)
                 throw new IndexOutOfRangeException();
 
             int level = this.maxLevel - 1;
@@ -56,15 +56,15 @@ public class SkipList<T> : IList<T>
                     level--;
             }
 
-            if (temp.Key == index)
-                return temp.Value;
+            if (temp.Next[0].Key == index)
+                return temp.Next[0].Value;
 
             throw new IndexOutOfRangeException();
         }
 
         set
         {
-            if ((uint)index >= (uint)this.Count)
+            if (index < 0)
                 throw new IndexOutOfRangeException();
 
             this.Insert(index, value);
@@ -117,6 +117,7 @@ public class SkipList<T> : IList<T>
         this.version++;
         for (int i = 0; i < this.maxLevel; i++)
             this.root.Next[i] = this.nil;
+        this.Count = 0;
     }
 
     public bool Contains(T item)
@@ -135,13 +136,17 @@ public class SkipList<T> : IList<T>
         if (arrayIndex < 0)
             throw new ArgumentOutOfRangeException();
 
-        List<T> list = new List<T>();
+        var sourceArray = new T[this.Count];
+        int i = 0;
 
         for (var temp = this.root.Next[0]; temp != this.nil; temp = temp.Next[0])
-            if (temp.Key >= arrayIndex)
-                list.Add(temp.Value);
+        {
+            sourceArray[i] = temp.Value;
+            i++;
+        }
+            
 
-        Array.Copy(list.ToArray(), 0, array, arrayIndex, list.Count);
+        Array.Copy(sourceArray, 0, array, arrayIndex, this.Count);
     }
 
     public int IndexOf(T item)
@@ -175,9 +180,9 @@ public class SkipList<T> : IList<T>
             }
         }
 
-        if (temp.Key == index)
+        if (temp.Next[0].Key == index)
         {
-            temp.Value = item;
+            temp.Next[0].Value = item;
             return;
         }
 
@@ -200,7 +205,7 @@ public class SkipList<T> : IList<T>
 
     public bool Remove(T item)
     {
-        var temp = this.root;
+        var temp = this.root.Next[0];
         bool result = false;
         while (temp != this.nil)
         {
@@ -211,6 +216,10 @@ public class SkipList<T> : IList<T>
 
                 this.RemoveAt(index);
                 result = true;
+            }
+            else
+            {
+                temp = temp.Next[0];
             }
         }
 
@@ -238,14 +247,16 @@ public class SkipList<T> : IList<T>
             }
         }
 
-        if (temp.Next[0].Key != index)
+        temp = temp.Next[0];
+
+        if (temp.Key != index)
             return;
 
         this.version++;
 
         this.Count--;
         for (int i = 0; i < temp.Next.Length; i++)
-            update[i].Next[i] = temp.Next[i].Next[i];
+            update[i].Next[i] = temp.Next[i];
     }
 
     public struct Enumerator : IEnumerator<T>, IEnumerator

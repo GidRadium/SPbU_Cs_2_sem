@@ -10,6 +10,7 @@ list.Add(4);
 list.Add(5);
 list.Add(6);
 list.RemoveAt(4);
+list.Insert(4, 9);
 
 foreach (var item in list)
 {

@@ -238,14 +238,14 @@ public class SkipList<T> : IList<T>
             }
         }
 
-        if (temp.Key != index)
+        if (temp.Next[0].Key != index)
             return;
 
         this.version++;
 
         this.Count--;
         for (int i = 0; i < temp.Next.Length; i++)
-            update[i].Next[i] = temp.Next[i];
+            update[i].Next[i] = temp.Next[i].Next[i];
     }
 
     public struct Enumerator : IEnumerator<T>, IEnumerator

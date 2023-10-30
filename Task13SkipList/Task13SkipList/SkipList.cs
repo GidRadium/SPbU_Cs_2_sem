@@ -50,7 +50,7 @@ public class SkipList<T> : IList<T>
             Node<T> temp = this.root;
             while (level >= 0)
             {
-                if (index > temp.Key)
+                if (index > temp.Next[level].Key)
                     temp = temp.Next[level];
                 else
                     level--;
@@ -84,7 +84,7 @@ public class SkipList<T> : IList<T>
         Node<T> temp = this.root;
         while (level >= 0)
         {
-            if (index > temp.Key)
+            if (index > temp.Next[level].Key)
             {
                 temp = temp.Next[level];
             }
@@ -164,7 +164,7 @@ public class SkipList<T> : IList<T>
         Node<T> temp = this.root;
         while (level >= 0)
         {
-            if (index > temp.Key)
+            if (index > temp.Next[level].Key)
             {
                 temp = temp.Next[level];
             }
@@ -227,7 +227,7 @@ public class SkipList<T> : IList<T>
         Node<T> temp = this.root;
         while (level >= 0)
         {
-            if (index > temp.Key)
+            if (index > temp.Next[level].Key)
             {
                 temp = temp.Next[level];
             }

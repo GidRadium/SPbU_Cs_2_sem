@@ -4,39 +4,26 @@ internal class ByteTrie
 {
     private class Node
     {
-        internal Dictionary<byte, Node> Children { get; set; }
-        internal int WordsPassedNumber { get; set; }
-        internal bool IsEndOfWord { get; set; }
-        internal uint WordCode { get; set; }
-        public Node()
-        {
-            this.Children = new Dictionary<byte, Node>();
-            this.WordsPassedNumber = 0;
-            this.IsEndOfWord = false;
-        }
+        internal Dictionary<byte, Node> Children { get; set; } = new Dictionary<byte, Node>();
+        internal int WordsPassedNumber { get; set; } = 0;
+        internal bool IsEndOfWord { get; set; } = false;
+        internal uint WordCode { get; set; } = 0;
     }
 
-    public uint LastCode { get; private set; }
-    private Node root;
-    public int Size { get; private set; }
-
-    public ByteTrie()
-    {
-        this.LastCode = 0;
-        this.root = new Node();
-        this.Size = 0;
-    }
+    public uint LastCode { get; private set; } = 0;
+    private Node root = new Node();
+    public int Size { get; private set; } = 0;
 
     public uint Add(byte[] element)
     {
-        if (element == null || element.Length == 0)
+        if (element == null)
+            throw new ArgumentNullException(nameof(element));
+
+        if (element.Length == 0)
             return 0;
 
         if (Contains(element) != 0)
-        {
             return Contains(element);
-        }
-
 
         Node temp = this.root;
         for (int i = 0; i < element.Length; i++)
@@ -57,7 +44,8 @@ internal class ByteTrie
     public uint Contains(byte[] element)
     {
         if (element == null)
-            return 0;
+            throw new ArgumentNullException(nameof(element));
+
         if (element.Length == 0)
             return 0;
 

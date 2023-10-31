@@ -34,9 +34,9 @@ public class LZW
 
     public static byte[] Compress(byte[] inputBytes)
     {   
-        List<byte> compressedBytesList = new List<byte>();
-        ByteTrie trie = new ByteTrie();
-        List<byte> currentCode = new List<byte>();
+        var compressedBytesList = new List<byte>();
+        var trie = new ByteTrie();
+        var currentCode = new List<byte>();
         int idMinLengthInBytes = 1;
         for (int i = 0; i < inputBytes.Length; i++)
         {

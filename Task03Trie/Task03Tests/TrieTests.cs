@@ -1,5 +1,6 @@
-using Task03Trie;
 namespace Task03Tests;
+
+using Task03Trie;
 
 [TestFixture]
 public class TrieTests

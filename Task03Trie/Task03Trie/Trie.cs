@@ -1,33 +1,26 @@
-﻿namespace Task03Trie;
+﻿using System.Xml.Linq;
+
+namespace Task03Trie;
 
 public class Trie
 {
     private class Node
     {
-        internal Dictionary<char, Node> Children { get; set; }
-        internal int WordsPassedNumber { get; set; }
-        internal bool IsEndOfWord { get; set; }
-
-        public Node()
-        {
-            this.Children = new Dictionary<char, Node>();
-            this.WordsPassedNumber = 0;
-            this.IsEndOfWord = false;
-        }
+        internal Dictionary<char, Node> Children { get; set; } = new Dictionary<char, Node>();
+        internal int WordsPassedNumber { get; set; } = 0;
+        internal bool IsEndOfWord { get; set; } = false;
     }
 
-    private Node root;
+    private Node root = new Node();
     public int Size { get; private set; }
     private bool containsEmptyString;
 
-    public Trie()
-    {
-        this.root = new Node();
-    }
-
     public bool Add(string element)
     {
-        if (element == null || Contains(element))
+        if (element == null)
+            throw new ArgumentNullException(nameof(element));
+
+        if (Contains(element))
             return false;
 
         if (element.Length == 0)
@@ -54,8 +47,9 @@ public class Trie
 
     public bool Contains(string element)
     {
-        if (element == null) 
-            return false;
+        if (element == null)
+            throw new ArgumentNullException(nameof(element));
+
         if (element.Length == 0)
             return this.containsEmptyString;
 
@@ -72,7 +66,10 @@ public class Trie
 
     public bool Remove(string element)
     {
-        if (element == null || !Contains(element))
+        if (element == null)
+            throw new ArgumentNullException(nameof(element));
+
+        if (!Contains(element))
             return false;
 
         if (element.Length == 0)
@@ -104,9 +101,10 @@ public class Trie
     public int HowManyStartsWithPrefix(string prefix)
     {
         if (prefix == null)
-            return 0;
+            throw new ArgumentNullException(nameof(prefix));
+
         if (prefix.Length == 0)
-            return this.containsEmptyString ? 1 : 0;
+            return this.Size;
 
         Node temp = this.root;
         for (int i = 0; i < prefix.Length; i++)

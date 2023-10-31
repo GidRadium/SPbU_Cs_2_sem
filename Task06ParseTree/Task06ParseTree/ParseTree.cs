@@ -1,7 +1,5 @@
 ﻿namespace Task06ParseTree;
 
-public class IncorrectExpressionException : Exception { }
-
 public class ParseTree
 {
     private class Operation

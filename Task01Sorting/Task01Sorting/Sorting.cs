@@ -1,10 +1,11 @@
 ﻿namespace Task01Sorting;
+
 public class Sorting
 {
     public static int[] BubbleSort(int[] array)
     {
         if (array == null) 
-            throw new ArgumentNullException();
+            throw new ArgumentNullException(nameof(array));
 
         if (array.Length < 2)
             return array;

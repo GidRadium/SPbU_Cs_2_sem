@@ -21,7 +21,7 @@ public class ArrayStack : IStack
     public double Pop()
     {
         if (this.Size == 0)
-            throw new Exception("ArrayStack.Pop(): Stack is empty!");
+            throw new InvalidOperationException("ArrayStack.Pop(): Stack is empty!");
 
         this.Size--;
         return this.data[this.Size];
@@ -30,8 +30,15 @@ public class ArrayStack : IStack
     public double Top()
     {
         if (this.Size == 0)
-            throw new Exception("ArrayStack.Top(): Stack is empty!");
+            throw new InvalidOperationException("ArrayStack.Top(): Stack is empty!");
 
         return this.data[this.Size - 1];
+    }
+
+    public void Clear()
+    {
+        this.data = new double[2];
+        this.Size = 0;
+        
     }
 }

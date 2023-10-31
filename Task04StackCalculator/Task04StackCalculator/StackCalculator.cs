@@ -3,11 +3,11 @@
 public class StackCalculator
 {
     public const double Delta = 0.000001;
-    private IStack Stack;
+    private IStack stack;
 
     public StackCalculator(IStack stack)
     {
-        this.Stack = stack;
+        this.stack = stack;
     }
     
     public double Solve(string expression)
@@ -18,50 +18,56 @@ public class StackCalculator
         var elements = expression.Split(' ');
         for (int i = 0; i < elements.Length; i++)
         {
+            if (this.stack.Size < 2
+                && (elements[i] == "+"
+                || elements[i] == "-"
+                || elements[i] == "*"
+                || elements[i] == "/"))
+            {
+                this.stack.Clear();
+                throw new ArgumentException("Expression is incorrect");
+            }
+
             switch (elements[i])
             {
                 case "+":
-                    this.Stack.Push(Stack.Pop() + this.Stack.Pop());
+                    this.stack.Push(stack.Pop() + this.stack.Pop());
                     break;
                 case "-":
-                    this.Stack.Push(-this.Stack.Pop() + this.Stack.Pop());
+                    this.stack.Push(-this.stack.Pop() + this.stack.Pop());
                     break;
                 case "*":
-                    this.Stack.Push(this.Stack.Pop() * this.Stack.Pop());
+                    this.stack.Push(this.stack.Pop() * this.stack.Pop());
                     break;
                 case "/":
-                    double b = this.Stack.Pop();
-                    double a = this.Stack.Pop();
+                    double b = this.stack.Pop();
+                    double a = this.stack.Pop();
                     if (Math.Abs(b) < Delta)
                     {
-                        while (this.Stack.Size > 0)
-                            Stack.Pop();
+                        this.stack.Clear();
                         throw new DivideByZeroException();
                     }
                     
-                    this.Stack.Push(a / b);
+                    this.stack.Push(a / b);
                     break;
                 default:
-                    double value;
-                    if (!Double.TryParse(elements[i], out value))
+                    if (!Double.TryParse(elements[i], out double value))
                     {
-                        while (this.Stack.Size > 0)
-                            Stack.Pop();
+                        this.stack.Clear();
                         throw new ArgumentException($"{elements[i]} is not double.");
                     }
                     
-                    this.Stack.Push(value);
+                    this.stack.Push(value);
                     break;
             }
         }
 
-        if (this.Stack.Size != 1)
+        if (this.stack.Size != 1)
         {
-            while (this.Stack.Size > 0)
-                Stack.Pop();
-            throw new Exception($"Expression is incorrect");
+            this.stack.Clear();
+            throw new ArgumentException("Expression is incorrect");
         }
 
-        return this.Stack.Pop();
+        return this.stack.Pop();
     }
 }

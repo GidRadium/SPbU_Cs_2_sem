@@ -9,4 +9,6 @@ public interface IStack
     double Pop();
 
     double Top();
+
+    void Clear();
 }

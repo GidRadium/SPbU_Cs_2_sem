@@ -1,5 +1,6 @@
-using Task04StackCalculator;
 namespace Task04Tests;
+
+using Task04StackCalculator;
 
 [TestFixture]
 public class StackCalculatorTests
@@ -29,21 +30,21 @@ public class StackCalculatorTests
 
     [TestCaseSource(nameof(Calculators))]
     public void StackCalculatorDivisionByZeroReturnsException1(StackCalculator stackCalculator)
-        => Assert.That(() => stackCalculator.Solve("1 0 /"), Throws.Exception);
+        => Assert.That(() => stackCalculator.Solve("1 0 /"), Throws.Exception.TypeOf<DivideByZeroException>());
 
     [TestCaseSource(nameof(Calculators))]
     public void StackCalculatorDivisionByZeroReturnsException2(StackCalculator stackCalculator)
-        => Assert.That(() => stackCalculator.Solve("1 1 1 - /"), Throws.Exception);
+        => Assert.That(() => stackCalculator.Solve("1 1 1 - /"), Throws.Exception.TypeOf<DivideByZeroException>());
 
     [TestCaseSource(nameof(Calculators))]
     public void StackCalculatorIncorrectStringReturnsException1(StackCalculator stackCalculator)
-        => Assert.That(() => stackCalculator.Solve("1 1 1 -"), Throws.Exception);
+        => Assert.That(() => stackCalculator.Solve("1 1 1 -"), Throws.Exception.TypeOf<ArgumentException>());
 
     [TestCaseSource(nameof(Calculators))]
     public void StackCalculatorIncorrectStringReturnsException2(StackCalculator stackCalculator)
-        => Assert.That(() => stackCalculator.Solve("1 1 - *"), Throws.Exception);
+        => Assert.That(() => stackCalculator.Solve("1 1 - *"), Throws.TypeOf<ArgumentException>());
 
     [TestCaseSource(nameof(Calculators))]
     public void StackCalculatorIncorrectStringReturnsException3(StackCalculator stackCalculator)
-        => Assert.That(() => stackCalculator.Solve("1 a -"), Throws.Exception);
+        => Assert.That(() => stackCalculator.Solve("1 a -"), Throws.TypeOf<ArgumentException>());
 }

@@ -2,18 +2,17 @@
 
 public class LZW
 {
+    private static readonly int[] byteLengthBarrier = { 0, 256, 256 * 256, 256 * 256 * 256 };
+
     private static List<byte> ToBytes(uint value, int minLengthInBytes)
     {
         byte[] bytes = BitConverter.GetBytes(value);
         var result = new List<byte>();
-        if (value >= 0)
-            result.Add(bytes[0]);
-        if (value >= 256)
-            result.Add(bytes[1]);
-        if (value >= 256 * 256)
-            result.Add(bytes[2]);
-        if (value >= 256 * 256 * 256)
-            result.Add(bytes[3]);
+
+        for (int j = 0; j < byteLengthBarrier.Length; j++)
+            if (value >= byteLengthBarrier[j])
+                result.Add(bytes[j]);
+
         while (result.Count < minLengthInBytes)
             result.Add(0);
         return result;
@@ -59,12 +58,9 @@ public class LZW
                 compressedBytesList.Add(inputBytes[i]);
                 currentCode.Clear();
                 
-                if (id == 255)
-                    idMinLengthInBytes = int.Max(idMinLengthInBytes, 2);
-                if (id == 256 * 256 - 1)
-                    idMinLengthInBytes = int.Max(idMinLengthInBytes, 3);
-                if (id == 256 * 256 * 256 - 1)
-                    idMinLengthInBytes = int.Max(idMinLengthInBytes, 4);
+                for (int j = 1; j < byteLengthBarrier.Length; j++)
+                    if (id == byteLengthBarrier[j] - 1)
+                        idMinLengthInBytes = int.Max(idMinLengthInBytes, j + 1);
             }
         }
 
@@ -92,12 +88,9 @@ public class LZW
             codes[codes.Count - 1].Add(letter);
             decompressedBytesList.AddRange(codes[codes.Count - 1]);
 
-            if (codes.Count == 256)
-                idMinLengthInBytes = int.Max(idMinLengthInBytes, 2);
-            if (codes.Count == 256 * 256)
-                idMinLengthInBytes = int.Max(idMinLengthInBytes, 3);
-            if (codes.Count == 256 * 256 * 256)
-                idMinLengthInBytes = int.Max(idMinLengthInBytes, 4);
+            for (int j = 1; j < byteLengthBarrier.Length; j++)
+                if (codes.Count == byteLengthBarrier[j])
+                    idMinLengthInBytes = int.Max(idMinLengthInBytes, j + 1);
         }
 
         return decompressedBytesList.ToArray();

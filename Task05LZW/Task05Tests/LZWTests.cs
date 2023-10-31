@@ -1,6 +1,7 @@
-﻿using Task05LZW;
+﻿namespace Task05Tests;
+
+using Task05LZW;
 using System.Text;
-namespace Task05Tests;
 
 public class LZWTests
 {

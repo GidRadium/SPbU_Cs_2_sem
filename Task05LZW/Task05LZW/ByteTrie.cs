@@ -4,15 +4,15 @@ internal class ByteTrie
 {
     private class Node
     {
-        internal Dictionary<byte, Node> Children { get; set; } = new Dictionary<byte, Node>();
-        internal int WordsPassedNumber { get; set; } = 0;
-        internal bool IsEndOfWord { get; set; } = false;
-        internal uint WordCode { get; set; } = 0;
+        internal Dictionary<byte, Node> Children { get; set; } = new();
+        internal int WordsPassedNumber { get; set; }
+        internal bool IsEndOfWord { get; set; }
+        internal uint WordCode { get; set; }
     }
 
-    public uint LastCode { get; private set; } = 0;
-    private Node root = new Node();
-    public int Size { get; private set; } = 0;
+    public uint LastCode { get; private set; }
+    private Node root = new();
+    public int Size { get; private set; }
 
     public uint Add(byte[] element)
     {

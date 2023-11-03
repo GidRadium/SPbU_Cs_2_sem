@@ -2,142 +2,179 @@
 
 public class ParseTree
 {
-    private class Operation
+    private abstract class Operation
     {
-        private char operationAsChar;
-        public Operation(char operationAsChar) 
+        public abstract double Count(double operand1, double operand2);
+        public abstract override string ToString();
+    }
+
+    private class Addition : Operation
+    {
+        public override double Count(double operand1, double operand2) => operand1 + operand2;
+
+        public override string ToString() => "+";
+    }
+
+    private class Subtraction : Operation
+    {
+        public override double Count(double operand1, double operand2) => operand1 - operand2;
+
+        public override string ToString() => "-";
+    }
+
+    private class Multiplication : Operation
+    {
+        public override double Count(double operand1, double operand2) => operand1 * operand2;
+
+        public override string ToString() => "*";
+    }
+
+    private class Division : Operation
+    {
+        public override double Count(double operand1, double operand2)
         {
-            switch (operationAsChar)
-            {
-                case '+':
-                case '-':
-                case '*':
-                case '/':
-                    this.operationAsChar = operationAsChar;
-                    break;
-                default:
-                    throw new ArgumentException();
-            }
+            if (Math.Abs(operand2) < 0.0000001)
+                throw new DivideByZeroException();
+            return operand1 / operand2;
         }
 
-        public double Count(double operand1, double operand2)
+        public override string ToString() => "/";
+    }
+
+    private abstract class Node
+    {
+        public abstract override string ToString();
+
+        public abstract double ToDouble();
+    }
+
+    private class OperationNode : Node
+    {
+        public OperandNode Operand1;
+        public OperandNode Operand2;
+        public Operation ExpressionOperation;
+
+        public OperationNode(OperandNode operand1, OperandNode operand2, Operation operation)
         {
-            switch (this.operationAsChar)
-            {
-                case '+':
-                    return operand1 + operand2;
-                case '-':
-                    return operand1 - operand2;
-                case '*':
-                    return operand1 * operand2;
-                case '/':
-                    if (operand2 > -0.0000001 && operand2 < 0.0000001)
-                        throw new DivideByZeroException();
-                    return operand1 / operand2;
-                default:
-                    throw new Exception("Invariant is violated.");
-            }
+            this.Operand1 = operand1;
+            this.Operand2 = operand2;
+            this.ExpressionOperation = operation;
+        }
+
+        public override double ToDouble()
+            => ExpressionOperation.Count(Operand1.ToDouble(), Operand2.ToDouble());
+
+        public override string ToString()
+            => $"({ExpressionOperation} {Operand1} {Operand2})";
+    }
+
+    private class OperandNode : Node
+    {
+        public OperationNode? ExpressionOperationNode;
+        public double Value;
+
+        public override double ToDouble()
+        {
+            if (ExpressionOperationNode == null)
+                return Value;
+            return ExpressionOperationNode.ToDouble();
         }
 
         public override string ToString()
         {
-            return this.operationAsChar.ToString();
+            if (ExpressionOperationNode == null)
+                return Value.ToString();
+            return ExpressionOperationNode.ToString();
         }
     }
 
-    private class Node
+    OperandNode root;
+
+    private OperandNode Parse(string expression)
     {
-        internal Operation? ExpressionOperation { get; set; }
-        internal Node? Operand1 { get; set; }
-        internal Node? Operand2 { get; set; }
-        internal bool IsLeaf { get; set; }
-        internal int Value { get; set; }
+        if (expression == null)
+            throw new NullReferenceException(nameof(expression));
 
-        public Node(string expression)
+        OperandNode node = new();
+        
+        if (int.TryParse(expression, out int value))
         {
-            int value;
-            if (int.TryParse(expression, out value))
-            {
-                this.Value = value;
-                this.IsLeaf = true;
-                this.Operand1 = null;
-                this.Operand2 = null;
-                this.ExpressionOperation = null;
-                return;
-            }
+            node.Value = value;
+            return node;
+        }
 
-            if (expression.Length < "(+ 1 1)".Length || expression[0] != '(' || expression[2] != ' ' || expression[expression.Length - 1] != ')')
-                throw new IncorrectExpressionException();
-
-            try
-            {
-                this.ExpressionOperation = new Operation(expression[1]);
-            }
-            catch(ArgumentException)
-            {
-                throw new IncorrectExpressionException();
-            }
-
-            int count = 0;
-            if (expression[3] == '(')
-            {
-                for (int i = 3; i < expression.Length - 1; i++)
-                {
-                    if (expression[i] == '(') count++;
-                    if (expression[i] == ')') count--;
-                    if (count == 0)
-                    {
-                        this.Operand1 = new Node(expression.Substring(3, i - 2));
-                        this.Operand2 = new Node(expression.Substring(i + 2, expression.Length - i - 3));
-                        return;
-                    }
-                }
-            }
-            else
-            {
-                for (int i = 3; i < expression.Length - 1; i++)
-                {
-                    if (expression[i] == ' ')
-                    {
-                        this.Operand1 = new Node(expression.Substring(3, i - 3));
-                        this.Operand2 = new Node(expression.Substring(i + 1, expression.Length - i - 2));
-                        return;
-                    }
-                }
-            }
-            
+        if (expression.Length < "(+ 1 1)".Length || expression[0] != '(' || expression[2] != ' ' || expression[expression.Length - 1] != ')')
             throw new IncorrectExpressionException();
+
+        Operation operation;
+        switch (expression[1])
+        {
+            case '+':
+                operation = new Addition();
+                break;
+            case '-':
+                operation = new Subtraction();
+                break;
+            case '*':
+                operation = new Multiplication();
+                break;
+            case '/':
+                operation = new Division();
+                break;
+            default:
+                throw new IncorrectExpressionException();
+        }
+        
+        int count = 0;
+        if (expression[3] == '(')
+        {
+            for (int i = 3; i < expression.Length - 1; i++)
+            {
+                if (expression[i] == '(') count++;
+                if (expression[i] == ')') count--;
+                if (count == 0)
+                {
+                    node.ExpressionOperationNode = new OperationNode
+                    (
+                        this.Parse(expression.Substring(3, i - 2)),
+                        this.Parse(expression.Substring(i + 2, expression.Length - i - 3)),
+                        operation
+                    );
+                    return node;
+                }
+            }
+        }
+        else
+        {
+            for (int i = 3; i < expression.Length - 1; i++)
+            {
+                if (expression[i] == ' ')
+                {
+                    node.ExpressionOperationNode = new OperationNode
+                    (
+                        this.Parse(expression.Substring(3, i - 3)),
+                        this.Parse(expression.Substring(i + 1, expression.Length - i - 2)),
+                        operation
+                    );
+                    return node;
+                }
+            }
         }
 
-        public override string ToString()
-        {
-            if (this.IsLeaf)
-                return this.Value.ToString();
-            return $"({this.ExpressionOperation} {this.Operand1} {this.Operand2})";
-        }
-
-        public double Calculate()
-        {
-            if (this.IsLeaf)
-                return (double)this.Value;
-            return this.ExpressionOperation.Count(this.Operand1.Calculate(), this.Operand2.Calculate());
-        }
+        throw new IncorrectExpressionException();
     }
-
-    private Node root;
 
     public ParseTree(string expression)
     {
-        this.root = new Node(expression);
+        if (expression == null)
+            throw new NullReferenceException(nameof(expression));
+
+        this.root = Parse(expression);
     }
 
-    public double Calculate()
-    {
-        return this.root.Calculate();
-    }
+    public double Count()
+        => this.root.ToDouble();
 
     public override string ToString()
-    {
-        return this.root.ToString();
-    }
+        => this.root.ToString();
 }

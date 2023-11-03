@@ -8,13 +8,8 @@ if (!File.Exists(filePath))
     return;
 }
 
-string input;
-using (var file = new System.IO.StreamReader(filePath))
-{
-    input = file.ReadToEnd();
-}
+string input = File.ReadAllText(filePath).Trim();
 
-input = input.Trim();
 ParseTree tree;
 try
 {
@@ -25,25 +20,14 @@ catch (IncorrectExpressionException)
     Console.WriteLine($"Expression in file {filePath} is incorrect!");
     return;
 }
-catch(Exception ex)
-{
-    Console.WriteLine($"Undefined exception is catched:\n{ex.Message}");
-    return;
-}
-        
+
 Console.WriteLine(tree);
 
 try
 {
-    Console.WriteLine($"Result of solving expression: {tree.Calculate()}");
+    Console.WriteLine($"Result of solving expression: {tree.Count()}");
 }
 catch (DivideByZeroException)
 {
     Console.WriteLine("Expression contains dividing by 0");
-    return;
-}
-catch (Exception ex)
-{
-    Console.WriteLine($"Undefined exception is catched:\n{ex.Message}");
-    return;
 }

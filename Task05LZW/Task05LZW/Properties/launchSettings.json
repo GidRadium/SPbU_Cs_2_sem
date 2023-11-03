@@ -1,0 +1,15 @@
+{
+  "profiles": {
+    "Task_05_LZW": {
+      "commandName": "Project"
+    },
+    "-c": {
+      "commandName": "Project",
+      "commandLineArgs": "\"../../../TestFiles/russian_nouns_with_definition.txt\" -c"
+    },
+    "-u": {
+      "commandName": "Project",
+      "commandLineArgs": "\"../../../TestFiles/russian_nouns_with_definition.txt.zipped\" -u"
+    }
+  }
+}

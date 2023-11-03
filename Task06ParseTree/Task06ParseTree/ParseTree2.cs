@@ -1,4 +1,6 @@
-﻿namespace Task06ParseTree;
+﻿using System.Linq.Expressions;
+
+namespace Task06ParseTree;
 
 public class ParseTree2
 {
@@ -50,46 +52,115 @@ public class ParseTree2
 
     private class OperationNode : Node
     {
-        OperandNode operand1;
-        OperandNode operand2;
-        Operation operation;
+        public OperandNode Operand1;
+        public OperandNode Operand2;
+        public Operation ExpressionOperation;
 
         public OperationNode(OperandNode operand1, OperandNode operand2, Operation operation)
         {
-            this.operand1 = operand1;
-            this.operand2 = operand2;
-            this.operation = operation;
+            this.Operand1 = operand1;
+            this.Operand2 = operand2;
+            this.ExpressionOperation = operation;
         }
 
         public override double ToDouble()
-            => operation.Count(operand1.ToDouble(), operand2.ToDouble());
+            => ExpressionOperation.Count(Operand1.ToDouble(), Operand2.ToDouble());
 
         public override string ToString()
-            => $"({operand1} {operand2} {operation})";
+            => $"({Operand1} {Operand2} {ExpressionOperation})";
     }
 
     private class OperandNode : Node
     {
-        OperandNode? operationNode;
-        double value;
+        public OperationNode? ExpressionOperationNode;
+        public double Value;
 
         public override double ToDouble()
         {
-            if (operationNode == null)
-                return value;
-            return operationNode.ToDouble();
+            if (ExpressionOperationNode == null)
+                return Value;
+            return ExpressionOperationNode.ToDouble();
         }
 
         public override string ToString()
         {
-            if (operationNode == null)
-                return value.ToString();
-            return operationNode.ToString();
+            if (ExpressionOperationNode == null)
+                return Value.ToString();
+            return ExpressionOperationNode.ToString();
         }
     }
 
-    private OperandNode Parse()
+    private OperandNode Parse(string expression)
     {
-        throw new NotImplementedException();
+        if (expression == null)
+            throw new NullReferenceException(nameof(expression));
+
+        OperandNode node = new();
+        
+        if (int.TryParse(expression, out int value))
+        {
+            node.Value = value;
+            return node;
+        }
+
+        if (expression.Length < "(+ 1 1)".Length || expression[0] != '(' || expression[2] != ' ' || expression[expression.Length - 1] != ')')
+            throw new IncorrectExpressionException();
+
+        Operation operation;
+        switch (expression[1])
+        {
+            case '+':
+                operation = new Addition();
+                break;
+            case '-':
+                operation = new Subtraction();
+                break;
+            case '*':
+                operation = new Multiplication();
+                break;
+            case '/':
+                operation = new Division();
+                break;
+            default:
+                throw new IncorrectExpressionException();
+        }
+        
+        int count = 0;
+        if (expression[3] == '(')
+        {
+            for (int i = 3; i < expression.Length - 1; i++)
+            {
+                if (expression[i] == '(') count++;
+                if (expression[i] == ')') count--;
+                if (count == 0)
+                {
+                    node.ExpressionOperationNode = new OperationNode
+                    (
+                        this.Parse(expression.Substring(3, i - 2)),
+                        this.Parse(expression.Substring(i + 2, expression.Length - i - 3)),
+                        operation
+                    );
+                    return node;
+                }
+            }
+        }
+        else
+        {
+            for (int i = 3; i < expression.Length - 1; i++)
+            {
+                if (expression[i] == ' ')
+                {
+                    node.ExpressionOperationNode = new OperationNode
+                    (
+                        this.Parse(expression.Substring(3, i - 3)),
+                        this.Parse(expression.Substring(i + 1, expression.Length - i - 2)),
+                        operation
+                    );
+                    return node;
+                }
+            }
+        }
+
+        throw new IncorrectExpressionException();
     }
 }

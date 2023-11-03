@@ -2,19 +2,17 @@
 
 public class ListStack : IStack
 {
-    private List<double> data = new List<double>();
+    private List<double> data = new();
 
-    public int Size { get => this.data.Count; }
+    public int Size => this.data.Count;
 
     public void Push(double value)
-    {
-        this.data.Add(value);
-    }
+        => this.data.Add(value);
 
     public double Pop()
     {
         if (this.Size == 0)
-            throw new InvalidOperationException("ListStack.Pop(): Stack is empty!");
+            throw new InvalidOperationException("Stack is empty!");
 
         double result = this.data[this.Size - 1];
         this.data.RemoveAt(this.Size - 1);
@@ -24,13 +22,11 @@ public class ListStack : IStack
     public double Top()
     {
         if (this.Size == 0)
-            throw new InvalidOperationException("ListStack.Top(): Stack is empty!");
+            throw new InvalidOperationException("Stack is empty!");
 
         return this.data[this.Size - 1];
     }
 
     public void Clear()
-    {
-        this.data.Clear();
-    }
+        => this.data.Clear();
 }

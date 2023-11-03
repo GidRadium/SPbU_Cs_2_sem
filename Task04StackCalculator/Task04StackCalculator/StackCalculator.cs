@@ -6,9 +6,7 @@ public class StackCalculator
     private IStack stack;
 
     public StackCalculator(IStack stack)
-    {
-        this.stack = stack;
-    }
+        => this.stack = stack;
     
     public double Solve(string expression)
     {

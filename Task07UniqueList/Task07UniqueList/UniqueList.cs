@@ -1,7 +1,5 @@
 ﻿namespace Task07UniqueList;
 
-public class AddRepeatingElementToUniqueListException : ArgumentException { };
-
 public class UniqueList : MyList
 {
     public override void AddValue(int value, int index)

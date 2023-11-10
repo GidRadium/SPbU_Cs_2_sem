@@ -1,20 +1,29 @@
 ﻿namespace Task07UniqueList;
+
 public class MyList
 {
     public int Size { get; private set; }
 
-    protected class Node
+    private class Node
     {
-        internal int Value { get; set; }
-        internal Node? Next { get; set; }
+        public int Value { get; set; }
+        public Node? Next { get; set; }
     }
 
-    private Node? root = null;
+    private Node? root;
+
+    private Node getNodeBeforeIndex(int index)
+    {
+        var temp = this.root;
+        for (int i = 0; i < index; i++)
+            temp = temp.Next;
+        return temp;
+    }
 
     public virtual void AddValue(int value, int index)
     {
         if (index < 0 || index > this.Size)
-            throw new ArgumentOutOfRangeException();
+            throw new ArgumentOutOfRangeException(nameof(index));
 
         var node = new Node();
         node.Value = value;
@@ -34,9 +43,7 @@ public class MyList
             return;
         }
 
-        var temp = this.root;
-        for (int i = 0; i < index - 1; i++)
-            temp = temp.Next;
+        var temp = getNodeBeforeIndex(index - 1);
 
         node.Next = temp.Next;
         temp.Next = node;
@@ -46,11 +53,9 @@ public class MyList
     public int GetValue(int index)
     {
         if (index < 0 || index > this.Size - 1)
-            throw new ArgumentOutOfRangeException();
+            throw new ArgumentOutOfRangeException(nameof(index));
 
-        var temp = this.root;
-        for (int i = 0; i < index; i++)
-            temp = temp.Next;
+        var temp = getNodeBeforeIndex(index);
 
         return temp.Value;
     }
@@ -58,11 +63,9 @@ public class MyList
     public virtual void SetValue(int value, int index)
     {
         if (index < 0 || index > this.Size - 1)
-            throw new ArgumentOutOfRangeException();
+            throw new ArgumentOutOfRangeException(nameof(index));
 
-        var temp = this.root;
-        for (int i = 0; i < index; i++)
-            temp = temp.Next;
+        var temp = getNodeBeforeIndex(index);
 
         temp.Value = value;
     }
@@ -70,7 +73,7 @@ public class MyList
     public virtual void DeleteValue(int index)
     {
         if (index < 0 || index > this.Size - 1)
-            throw new ArgumentOutOfRangeException();
+            throw new ArgumentOutOfRangeException(nameof(index));
 
         if (index == 0)
         {
@@ -79,9 +82,7 @@ public class MyList
             return;
         }
 
-        var temp = this.root;
-        for (int i = 0; i < index; i++)
-            temp = temp.Next;
+        var temp = getNodeBeforeIndex(index);
 
         temp.Next = temp.Next.Next;
         this.Size--;

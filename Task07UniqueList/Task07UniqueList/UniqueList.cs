@@ -1,5 +1,6 @@
 ﻿namespace Task07UniqueList;
 
+// List that prohibits containing duplicate elements.
 public class UniqueList : MyList
 {
     public override void AddValue(int value, int index)

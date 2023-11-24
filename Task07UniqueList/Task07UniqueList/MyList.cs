@@ -1,5 +1,6 @@
 ﻿namespace Task07UniqueList;
 
+// List class.
 public class MyList
 {
     public int Size { get; private set; }

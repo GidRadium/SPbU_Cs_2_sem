@@ -13,7 +13,7 @@ public class MyList
 
     private Node? root;
 
-    private Node getNodeBeforeIndex(int index)
+    private Node GetNodeBeforeIndex(int index)
     {
         var temp = this.root;
         for (int i = 0; i < index; i++)
@@ -44,7 +44,7 @@ public class MyList
             return;
         }
 
-        var temp = getNodeBeforeIndex(index - 1);
+        var temp = GetNodeBeforeIndex(index - 1);
 
         node.Next = temp.Next;
         temp.Next = node;
@@ -56,7 +56,7 @@ public class MyList
         if (index < 0 || index > this.Size - 1)
             throw new ArgumentOutOfRangeException(nameof(index));
 
-        var temp = getNodeBeforeIndex(index);
+        var temp = GetNodeBeforeIndex(index);
 
         return temp.Value;
     }
@@ -66,7 +66,7 @@ public class MyList
         if (index < 0 || index > this.Size - 1)
             throw new ArgumentOutOfRangeException(nameof(index));
 
-        var temp = getNodeBeforeIndex(index);
+        var temp = GetNodeBeforeIndex(index);
 
         temp.Value = value;
     }
@@ -83,7 +83,7 @@ public class MyList
             return;
         }
 
-        var temp = getNodeBeforeIndex(index);
+        var temp = GetNodeBeforeIndex(index);
 
         temp.Next = temp.Next.Next;
         this.Size--;

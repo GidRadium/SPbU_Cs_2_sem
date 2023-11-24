@@ -30,7 +30,7 @@ internal class ListsTests
     }
 
     [TestCaseSource(nameof(Lists))]
-    public void ListSetAndGetValueAreCorrect1(MyList list)
+    public void ListSetAndGetValueAreCorrect(MyList list)
     {
         list.AddValue(0, 0);
         list.SetValue(4, 0);
@@ -38,7 +38,7 @@ internal class ListsTests
     }
 
     [TestCaseSource(nameof(Lists))]
-    public void ListSetAndGetValueAreCorrect2(MyList list)
+    public void ListSetTwiceAndGetValueAreCorrect(MyList list)
     {
         list.AddValue(0, 0);
         list.SetValue(4, 0);
@@ -51,7 +51,7 @@ internal class ListsTests
         => Assert.That(() => list.SetValue(3, 3), Throws.Exception.TypeOf<ArgumentOutOfRangeException>());
 
     [Test]
-    public void UniqueListAddDublicateElementThrowsException1()
+    public void UniqueListAddDublicateElementAfterDeleteThrowsException()
     {
         var list = new UniqueList();
 
@@ -66,7 +66,7 @@ internal class ListsTests
     }
 
     [Test]
-    public void UniqueListAddDublicateElementThrowsException2()
+    public void UniqueListAddDublicateElementThrowsException()
     {
         var list = new UniqueList();
 

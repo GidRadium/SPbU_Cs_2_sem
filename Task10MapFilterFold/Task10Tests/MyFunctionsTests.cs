@@ -14,4 +14,8 @@ public class MyFunctionsTests
     [Test]
     public void MyFunctionsFoldReturnsCorrectResult()
         => Assert.That(MyFunctions.Fold(new List<int>() { 1, 2, 3, 4, 5 }, 1, (value, element) => value * element), Is.EqualTo(120));
+
+    [Test]
+    public void MyFunctionsFilterLettersIsCorrect()
+        => CollectionAssert.AreEqual(MyFunctions.Filter(new List<char>() { 'a', 'b', '\n', 'c', '\n', '\n', 'd', ' ', '\n' }, x => x != '\n' && x != ' '), new List<int>() { 'a', 'b', 'c', 'd' });
 }

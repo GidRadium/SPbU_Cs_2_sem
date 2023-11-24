@@ -1,13 +1,16 @@
 ﻿namespace Task06ParseTree;
 
+// Main project class. Parses expressions like (<operation> <operand1> <operand2>), where operand can also be an expression.
 public class ParseTree
 {
+    // Base class of Operations used in expressions.
     private abstract class Operation
     {
         public abstract double Count(double operand1, double operand2);
         public abstract override string ToString();
     }
 
+    // Represents "+" in expression.
     private class Addition : Operation
     {
         public override double Count(double operand1, double operand2) => operand1 + operand2;
@@ -15,6 +18,7 @@ public class ParseTree
         public override string ToString() => "+";
     }
 
+    // Represents "-" in expression.
     private class Subtraction : Operation
     {
         public override double Count(double operand1, double operand2) => operand1 - operand2;
@@ -22,6 +26,7 @@ public class ParseTree
         public override string ToString() => "-";
     }
 
+    // Represents "*" in expression.
     private class Multiplication : Operation
     {
         public override double Count(double operand1, double operand2) => operand1 * operand2;
@@ -29,6 +34,7 @@ public class ParseTree
         public override string ToString() => "*";
     }
 
+    // Represents "/" in expression.
     private class Division : Operation
     {
         public override double Count(double operand1, double operand2)
@@ -41,90 +47,67 @@ public class ParseTree
         public override string ToString() => "/";
     }
 
-    private abstract class Node
+    // Base class of Nodes. Represents value from expression.
+    private class Node
     {
-        public abstract override string ToString();
+        private double value;
 
-        public abstract double ToDouble();
+        public virtual double GetValue() => value;
+        public double SetValue(double value) => this.value = value;
+
+        public override string ToString() => value.ToString();
     }
 
+    // Class of Node, that represents operation.
     private class OperationNode : Node
     {
-        public OperandNode Operand1;
-        public OperandNode Operand2;
+        public override double GetValue()
+            => ExpressionOperation.Count(Operand1.GetValue(), Operand2.GetValue());
+
+        public Node Operand1;
+        public Node Operand2;
         public Operation ExpressionOperation;
 
-        public OperationNode(OperandNode operand1, OperandNode operand2, Operation operation)
+        public OperationNode(Node operand1, Node operand2, Operation operation)
         {
             this.Operand1 = operand1;
             this.Operand2 = operand2;
             this.ExpressionOperation = operation;
         }
 
-        public override double ToDouble()
-            => ExpressionOperation.Count(Operand1.ToDouble(), Operand2.ToDouble());
-
         public override string ToString()
             => $"({ExpressionOperation} {Operand1} {Operand2})";
     }
 
-    private class OperandNode : Node
-    {
-        public OperationNode? ExpressionOperationNode;
-        public double Value;
+    private Node root;
 
-        public override double ToDouble()
-        {
-            if (ExpressionOperationNode == null)
-                return Value;
-            return ExpressionOperationNode.ToDouble();
-        }
-
-        public override string ToString()
-        {
-            if (ExpressionOperationNode == null)
-                return Value.ToString();
-            return ExpressionOperationNode.ToString();
-        }
-    }
-
-    OperandNode root;
-
-    private OperandNode Parse(string expression)
+    private Node Parse(string expression)
     {
         if (expression == null)
             throw new NullReferenceException(nameof(expression));
 
-        OperandNode node = new();
         
+        Node node;
+
         if (int.TryParse(expression, out int value))
         {
-            node.Value = value;
+            node = new Node();
+            node.SetValue(value);
             return node;
         }
 
         if (expression.Length < "(+ 1 1)".Length || expression[0] != '(' || expression[2] != ' ' || expression[expression.Length - 1] != ')')
             throw new IncorrectExpressionException();
-
-        Operation operation;
-        switch (expression[1])
-        {
-            case '+':
-                operation = new Addition();
-                break;
-            case '-':
-                operation = new Subtraction();
-                break;
-            case '*':
-                operation = new Multiplication();
-                break;
-            case '/':
-                operation = new Division();
-                break;
-            default:
-                throw new IncorrectExpressionException();
-        }
         
+        Operation operation = expression[1] switch
+        {
+            '+' => new Addition(),
+            '-' => new Subtraction(),
+            '*' => new Multiplication(),
+            '/' => new Division(),
+            _ => throw new IncorrectExpressionException(),
+        };
+
         int count = 0;
         if (expression[3] == '(')
         {
@@ -134,7 +117,7 @@ public class ParseTree
                 if (expression[i] == ')') count--;
                 if (count == 0)
                 {
-                    node.ExpressionOperationNode = new OperationNode
+                    node = new OperationNode
                     (
                         this.Parse(expression.Substring(3, i - 2)),
                         this.Parse(expression.Substring(i + 2, expression.Length - i - 3)),
@@ -150,7 +133,7 @@ public class ParseTree
             {
                 if (expression[i] == ' ')
                 {
-                    node.ExpressionOperationNode = new OperationNode
+                    node = new OperationNode
                     (
                         this.Parse(expression.Substring(3, i - 3)),
                         this.Parse(expression.Substring(i + 1, expression.Length - i - 2)),
@@ -173,7 +156,7 @@ public class ParseTree
     }
 
     public double Count()
-        => this.root.ToDouble();
+        => this.root.GetValue();
 
     public override string ToString()
         => this.root.ToString();

@@ -1,4 +1,4 @@
-namespace TicTacToeTests;
+namespace Task14Tests;
 
 using Task14TicTacToe;
 
@@ -7,7 +7,8 @@ public class TicTacToeTests
     private TicTacToe ticTacToe;
 
     [SetUp]
-    public void Setup() => ticTacToe = new TicTacToe();
+    public void Setup()
+        => ticTacToe = new TicTacToe();
 
     [Test]
     public void TicTacToeNoWinnerWhenEmpty()

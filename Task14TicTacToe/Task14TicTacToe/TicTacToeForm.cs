@@ -1,16 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Drawing.Text;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Task14TicTacToe
 {
+    /// <summary>
+    /// Main form of game app.
+    /// </summary>
     public partial class TicTacToeForm : Form
     {
         private TicTacToe ticTacToe = new TicTacToe();
@@ -59,7 +54,6 @@ namespace Task14TicTacToe
                 {
                     ticTacToe.ClearField();
                     ClearAllButtons();
-                    
                 }
             }
         }
@@ -77,54 +71,24 @@ namespace Task14TicTacToe
             }
         }
 
-        public TicTacToeForm()
-        {
-            InitializeComponent();
-        }
+        public TicTacToeForm() => InitializeComponent();
 
-        private void Button00_Click(object sender, EventArgs e)
-        {
-            OnButtonClick(0, 0);
-        }
+        private void Button00_Click(object sender, EventArgs e) => OnButtonClick(0, 0);
 
-        private void Button01_Click(object sender, EventArgs e)
-        {
-            OnButtonClick(0, 1);
-        }
+        private void Button01_Click(object sender, EventArgs e) => OnButtonClick(0, 1);
 
-        private void Button02_Click(object sender, EventArgs e)
-        {
-            OnButtonClick(0, 2);
-        }
+        private void Button02_Click(object sender, EventArgs e) => OnButtonClick(0, 2);
 
-        private void Button10_Click(object sender, EventArgs e)
-        {
-            OnButtonClick(1, 0);
-        }
+        private void Button10_Click(object sender, EventArgs e) => OnButtonClick(1, 0);
 
-        private void Button11_Click(object sender, EventArgs e)
-        {
-            OnButtonClick(1, 1);
-        }
+        private void Button11_Click(object sender, EventArgs e) => OnButtonClick(1, 1);
 
-        private void Button12_Click(object sender, EventArgs e)
-        {
-            OnButtonClick(1, 2);
-        }
+        private void Button12_Click(object sender, EventArgs e) => OnButtonClick(1, 2);
 
-        private void Button20_Click(object sender, EventArgs e)
-        {
-            OnButtonClick(2, 0);
-        }
+        private void Button20_Click(object sender, EventArgs e) => OnButtonClick(2, 0);
 
-        private void Button22_Click(object sender, EventArgs e)
-        {
-            OnButtonClick(2, 2);
-        }
+        private void button21_Click(object sender, EventArgs e) => OnButtonClick(2, 1);
 
-        private void button21_Click(object sender, EventArgs e)
-        {
-            OnButtonClick(2, 1);
-        }
+        private void Button22_Click(object sender, EventArgs e) => OnButtonClick(2, 2);
     }
 }

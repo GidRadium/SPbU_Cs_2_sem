@@ -1,12 +1,13 @@
-﻿using System.Collections.Generic;
-using System.Runtime.InteropServices;
-
-namespace Task14TicTacToe
+﻿namespace Task14TicTacToe
 {
-    
-
+    /// <summary>
+    /// Data of TicTacToe game.
+    /// </summary>
     public class TicTacToe
     {
+        /// <summary>
+        /// Enum class for state of game's cell.
+        /// </summary>
         public enum CellState
         {
             Empty,
@@ -24,17 +25,21 @@ namespace Task14TicTacToe
 
         private CellState[,] field = new CellState[3, 3];
 
+        /// <summary>
+        /// Clears field.
+        /// </summary>
         public void ClearField()
-        {
-            this.field = new CellState[3, 3];
-        }
+            => this.field = new CellState[3, 3];
 
+        /// <summary>
+        /// Updates field after user step.
+        /// </summary>
         public void Step(int x, int y)
         {
             if (this.GetWinner() == CellState.Empty &&  this.field[x, y] == CellState.Empty)
             {
                 this.field[x, y] = (this.turn == Turn.Circle ? CellState.Circle : CellState.Cross);
-                turn = (this.turn == Turn.Circle ? Turn.Cross : Turn.Circle);
+                this.turn = (this.turn == Turn.Circle ? Turn.Cross : Turn.Circle);
             }
         }
 
@@ -49,6 +54,14 @@ namespace Task14TicTacToe
             return CellState.Empty;
         }
 
+        /// <summary>
+        /// Calculates the winner of the game.
+        /// </summary>
+        /// <returns>
+        /// CellState.Empty if game is not ended.
+        /// CellState.Cross if first player wins.
+        /// CellState.Circle if second player wins.
+        /// </returns>
         public CellState GetWinner()
         {
             int[] startX = { 0, 0, 0, 1, 0, 2, 0, 2 };
@@ -63,9 +76,10 @@ namespace Task14TicTacToe
             return CellState.Empty;
         }
 
+        /// <returns>
+        /// Cell current state.
+        /// </returns>
         public CellState GetCellState(int x, int y)
-        {
-            return this.field[x, y];
-        }
+            => this.field[x, y];
     }
 }

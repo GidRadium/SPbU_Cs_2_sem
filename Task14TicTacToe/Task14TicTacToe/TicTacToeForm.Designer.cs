@@ -171,6 +171,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(484, 461);
             this.Controls.Add(this.tableLayoutPanel1);
+            this.MinimumSize = new System.Drawing.Size(400, 400);
             this.Name = "TicTacToeForm";
             this.Text = "TicTacToe";
             this.tableLayoutPanel1.ResumeLayout(false);

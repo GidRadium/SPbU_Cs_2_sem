@@ -69,6 +69,7 @@
             // Button22
             // 
             this.Button22.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Button22.Font = new System.Drawing.Font("Microsoft Sans Serif", 72F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Button22.Location = new System.Drawing.Point(325, 309);
             this.Button22.Name = "Button22";
             this.Button22.Size = new System.Drawing.Size(156, 149);
@@ -79,6 +80,7 @@
             // Button21
             // 
             this.Button21.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Button21.Font = new System.Drawing.Font("Microsoft Sans Serif", 72F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Button21.Location = new System.Drawing.Point(164, 309);
             this.Button21.Name = "Button21";
             this.Button21.Size = new System.Drawing.Size(155, 149);
@@ -89,6 +91,7 @@
             // Button20
             // 
             this.Button20.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Button20.Font = new System.Drawing.Font("Microsoft Sans Serif", 72F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Button20.Location = new System.Drawing.Point(3, 309);
             this.Button20.Name = "Button20";
             this.Button20.Size = new System.Drawing.Size(155, 149);
@@ -99,6 +102,7 @@
             // Button12
             // 
             this.Button12.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Button12.Font = new System.Drawing.Font("Microsoft Sans Serif", 72F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Button12.Location = new System.Drawing.Point(325, 156);
             this.Button12.Name = "Button12";
             this.Button12.Size = new System.Drawing.Size(156, 147);
@@ -109,6 +113,7 @@
             // Button11
             // 
             this.Button11.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Button11.Font = new System.Drawing.Font("Microsoft Sans Serif", 72F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Button11.Location = new System.Drawing.Point(164, 156);
             this.Button11.Name = "Button11";
             this.Button11.Size = new System.Drawing.Size(155, 147);
@@ -119,6 +124,7 @@
             // Button10
             // 
             this.Button10.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Button10.Font = new System.Drawing.Font("Microsoft Sans Serif", 72F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Button10.Location = new System.Drawing.Point(3, 156);
             this.Button10.Name = "Button10";
             this.Button10.Size = new System.Drawing.Size(155, 147);
@@ -129,6 +135,7 @@
             // Button02
             // 
             this.Button02.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Button02.Font = new System.Drawing.Font("Microsoft Sans Serif", 72F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Button02.Location = new System.Drawing.Point(325, 3);
             this.Button02.Name = "Button02";
             this.Button02.Size = new System.Drawing.Size(156, 147);
@@ -139,6 +146,7 @@
             // Button01
             // 
             this.Button01.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Button01.Font = new System.Drawing.Font("Microsoft Sans Serif", 72F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Button01.Location = new System.Drawing.Point(164, 3);
             this.Button01.Name = "Button01";
             this.Button01.Size = new System.Drawing.Size(155, 147);
@@ -149,6 +157,7 @@
             // Button00
             // 
             this.Button00.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Button00.Font = new System.Drawing.Font("Microsoft Sans Serif", 72F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Button00.Location = new System.Drawing.Point(3, 3);
             this.Button00.Name = "Button00";
             this.Button00.Size = new System.Drawing.Size(155, 147);

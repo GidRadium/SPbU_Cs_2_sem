@@ -41,10 +41,11 @@ namespace Task14TicTacToe
         {
             this.ticTacToe.Step(x, y);
             GetButtonByIndex(x, y).Text = CellStateAsString(this.ticTacToe.GetCellState(x, y));
-            if (this.ticTacToe.GetWinner() != TicTacToe.CellState.Empty)
+            if (this.ticTacToe.GetWinner() != TicTacToe.CellState.Empty || this.ticTacToe.IsDraw())
             {
-                string message = (this.ticTacToe.GetWinner() == TicTacToe.CellState.Cross
-                    ? "First player wins!" : "Second player wins!");
+                string message = this.ticTacToe.IsDraw() ? "Draw!"
+                    : (this.ticTacToe.GetWinner() == TicTacToe.CellState.Cross
+                        ? "First player wins!" : "Second player wins!");
                 string caption = "Press OK to restart the game.";
                 MessageBoxButtons buttons = MessageBoxButtons.OK;
                 DialogResult result;

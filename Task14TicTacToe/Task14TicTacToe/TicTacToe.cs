@@ -76,6 +76,22 @@
             return CellState.Empty;
         }
 
+        /// <summary>
+        /// Checks game state is draw.
+        /// </summary>
+        /// <returns>
+        /// True if field is full. Otherwise - false.
+        /// </returns>
+        public bool IsDraw()
+        {
+            for (int i = 0; i < 3; i++)
+                for (int j = 0; j < 3; j++) 
+                    if (this.field[i, j] == CellState.Empty)
+                        return false;
+
+            return true;
+        }
+
         /// <returns>
         /// Cell current state.
         /// </returns>

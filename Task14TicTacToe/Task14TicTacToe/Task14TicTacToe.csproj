@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{2FD95293-1280-4464-A2C5-355AFB8DE23C}</ProjectGuid>
+    <ProjectGuid>{84539D5F-45D8-4254-8592-9D0EC309C151}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>Task14TicTacToe</RootNamespace>
     <AssemblyName>Task14TicTacToe</AssemblyName>
@@ -46,14 +46,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="TicTacToeForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="TicTacToeForm.Designer.cs">
+      <DependentUpon>TicTacToeForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="TicTacToeForm.resx">
+      <DependentUpon>TicTacToeForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

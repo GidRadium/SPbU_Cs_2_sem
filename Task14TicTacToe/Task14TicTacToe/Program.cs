@@ -16,7 +16,7 @@ namespace Task14TicTacToe
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new TicTacToe());
+            Application.Run(new TicTacToeForm());
         }
     }
 }

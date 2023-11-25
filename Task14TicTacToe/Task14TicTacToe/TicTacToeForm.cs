@@ -23,6 +23,9 @@ namespace Task14TicTacToe
             Button22.Text = " ";
         }
 
+        /// <returns>
+        /// Button by it's position in the field.
+        /// </returns>
         private System.Windows.Forms.Button GetButtonByIndex(int x, int y)
         {
             if (x == 0 && y == 0) return Button00;
@@ -37,6 +40,9 @@ namespace Task14TicTacToe
             return Button00;
         }
 
+        /// <summary>
+        /// Handles form button click.
+        /// </summary>
         void OnButtonClick(int x, int y)
         {
             this.ticTacToe.Step(x, y);
@@ -59,6 +65,9 @@ namespace Task14TicTacToe
             }
         }
 
+        /// <returns>
+        /// String implementation of CellState.
+        /// </returns>
         private string CellStateAsString(TicTacToe.CellState CellState)
         {
             switch (CellState)

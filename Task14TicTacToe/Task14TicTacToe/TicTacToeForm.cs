@@ -28,6 +28,40 @@ namespace Task14TicTacToe
             Button22.Text = " ";
         }
 
+        private System.Windows.Forms.Button GetButtonByIndex(int x, int y)
+        {
+            if (x == 0 && y == 0) return Button00;
+            if (x == 0 && y == 1) return Button01;
+            if (x == 0 && y == 2) return Button02;
+            if (x == 1 && y == 0) return Button10;
+            if (x == 1 && y == 1) return Button11;
+            if (x == 1 && y == 2) return Button12;
+            if (x == 2 && y == 0) return Button20;
+            if (x == 2 && y == 1) return Button21;
+            if (x == 2 && y == 2) return Button22;
+            return Button00;
+        }
+
+        void OnButtonClick(int x, int y)
+        {
+            this.ticTacToe.Step(x, y);
+            GetButtonByIndex(x, y).Text = CellStateAsString(this.ticTacToe.GetCellState(x, y));
+            if (this.ticTacToe.GetWinner() != TicTacToe.CellState.Empty)
+            {
+                string message = "Game ends";
+                string caption = "";
+                MessageBoxButtons buttons = MessageBoxButtons.OK;
+                DialogResult result;
+
+                result = MessageBox.Show(message, caption, buttons);
+                if (result == System.Windows.Forms.DialogResult.OK)
+                {
+                    ClearAllButtons();
+                    //this.Close();
+                }
+            }
+        }
+
         private string CellStateAsString(TicTacToe.CellState CellState)
         {
             switch (CellState)
@@ -48,70 +82,47 @@ namespace Task14TicTacToe
 
         private void Button00_Click(object sender, EventArgs e)
         {
-            this.ticTacToe.Step(0, 0);
-            Button00.Text = CellStateAsString(this.ticTacToe.GetCellState(0, 0));
-            if (this.ticTacToe.GetWinner() != TicTacToe.CellState.Empty)
-            {
-                string message = "Game ends";
-                string caption = "";
-                MessageBoxButtons buttons = MessageBoxButtons.OK;
-                DialogResult result;
-
-                result = MessageBox.Show(message, caption, buttons);
-                if (result == System.Windows.Forms.DialogResult.OK)
-                {
-                    ClearAllButtons();
-                    this.Close();
-                }
-            }
+            OnButtonClick(0, 0);
         }
 
         private void Button01_Click(object sender, EventArgs e)
         {
-            this.ticTacToe.Step(0, 1);
-            Button00.Text = CellStateAsString(this.ticTacToe.GetCellState(0, 1));
+            OnButtonClick(0, 1);
         }
 
         private void Button02_Click(object sender, EventArgs e)
         {
-            this.ticTacToe.Step(0, 2);
-            Button00.Text = CellStateAsString(this.ticTacToe.GetCellState(0, 2));
+            OnButtonClick(0, 2);
         }
 
         private void Button10_Click(object sender, EventArgs e)
         {
-            this.ticTacToe.Step(1, 0);
-            Button00.Text = CellStateAsString(this.ticTacToe.GetCellState(1, 0));
+            OnButtonClick(1, 0);
         }
 
         private void Button11_Click(object sender, EventArgs e)
         {
-            this.ticTacToe.Step(1, 1);
-            Button00.Text = CellStateAsString(this.ticTacToe.GetCellState(1, 1));
+            OnButtonClick(1, 1);
         }
 
         private void Button12_Click(object sender, EventArgs e)
         {
-            this.ticTacToe.Step(1, 2);
-            Button00.Text = CellStateAsString(this.ticTacToe.GetCellState(1, 2));
+            OnButtonClick(1, 2);
         }
 
         private void Button20_Click(object sender, EventArgs e)
         {
-            this.ticTacToe.Step(2, 0);
-            Button00.Text = CellStateAsString(this.ticTacToe.GetCellState(2, 0));
+            OnButtonClick(2, 0);
         }
 
         private void Button22_Click(object sender, EventArgs e)
         {
-            this.ticTacToe.Step(2, 2);
-            Button00.Text = CellStateAsString(this.ticTacToe.GetCellState(2, 2));
+            OnButtonClick(2, 2);
         }
 
         private void button21_Click(object sender, EventArgs e)
         {
-            this.ticTacToe.Step(2, 1);
-            Button00.Text = CellStateAsString(this.ticTacToe.GetCellState(2, 1));
+            OnButtonClick(2, 1);
         }
     }
 }

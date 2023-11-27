@@ -36,7 +36,7 @@
         /// </summary>
         public void Step(int x, int y)
         {
-            if (this.GetWinner() == CellState.Empty &&  this.field[x, y] == CellState.Empty)
+            if (this.GetWinner() == CellState.Empty && this.field[x, y] == CellState.Empty)
             {
                 this.field[x, y] = (this.turn == Turn.Circle ? CellState.Circle : CellState.Cross);
                 this.turn = (this.turn == Turn.Circle ? Turn.Cross : Turn.Circle);
@@ -66,8 +66,8 @@
         {
             int[] startX = { 0, 0, 0, 1, 0, 2, 0, 2 };
             int[] startY = { 0, 0, 0, 0, 1, 0, 2, 0 };
-            int[] stepX =  { 1, 0, 1, 0, 1, 0, 1, -1 };
-            int[] stepY =  { 0, 1, 1, 1, 0, 1, 0, 1 };
+            int[] stepX = { 1, 0, 1, 0, 1, 0, 1, -1 };
+            int[] stepY = { 0, 1, 1, 1, 0, 1, 0, 1 };
 
             for (int i = 0; i < startX.Length; i++)
                 if (GetWinnerInRaw(startX[i], startY[i], stepX[i], stepY[i]) != CellState.Empty)
@@ -85,7 +85,7 @@
         public bool IsDraw()
         {
             for (int i = 0; i < 3; i++)
-                for (int j = 0; j < 3; j++) 
+                for (int j = 0; j < 3; j++)
                     if (this.field[i, j] == CellState.Empty)
                         return false;
 

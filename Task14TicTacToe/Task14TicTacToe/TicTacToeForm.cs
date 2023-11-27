@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Windows.Forms;
 
 namespace Task14TicTacToe
@@ -86,6 +86,11 @@ namespace Task14TicTacToe
         }
 
         public TicTacToeForm() => InitializeComponent();
+
+        private void OnCellButtonClick(object sender, EventArgs e)
+        {
+
+        }
 
         private void Button00_Click(object sender, EventArgs e) => OnButtonClick(0, 0);
 

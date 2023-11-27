@@ -38,7 +38,7 @@ public class CalculatorTests
         calculator.EnterNumber(1);
         calculator.EnterOperation(Calculator.Operation.Divide);
         calculator.EnterNumber(2);
-        Assert.That(calculator.Equals(), Is.EqualTo("0,5"));
+        Assert.That(calculator.Equals(), Is.EqualTo((0.5).ToString()));
     }
 
     [Test]

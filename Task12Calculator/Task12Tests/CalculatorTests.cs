@@ -1,5 +1,7 @@
 namespace Task12Tests;
+
 using Task12Calculator;
+
 public class CalculatorTests
 {
     private Calculator calculator;

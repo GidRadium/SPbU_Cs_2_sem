@@ -1,6 +1,8 @@
 ﻿namespace Task07UniqueList;
 
-// List class.
+/// <summary>
+/// List class.
+/// </summary>
 public class MyList
 {
     public int Size { get; private set; }
@@ -21,6 +23,10 @@ public class MyList
         return temp;
     }
 
+    /// <summary>
+    /// Inserts value to the list to the index position.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"></exception>
     public virtual void AddValue(int value, int index)
     {
         if (index < 0 || index > this.Size)
@@ -51,6 +57,8 @@ public class MyList
         Size++;
     }
 
+    /// <returns>Value on index position in the list.</returns>
+    /// <exception cref="ArgumentOutOfRangeException"></exception>
     public int GetValue(int index)
     {
         if (index < 0 || index > this.Size - 1)
@@ -61,6 +69,10 @@ public class MyList
         return temp.Value;
     }
 
+    /// <summary>
+    /// Sets the value to the index position.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"></exception>
     public virtual void SetValue(int value, int index)
     {
         if (index < 0 || index > this.Size - 1)
@@ -71,6 +83,10 @@ public class MyList
         temp.Value = value;
     }
 
+    /// <summary>
+    /// Deletes list value on the index position.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"></exception>
     public virtual void DeleteValue(int index)
     {
         if (index < 0 || index > this.Size - 1)
@@ -89,9 +105,18 @@ public class MyList
         this.Size--;
     }
 
+    /// <summary>
+    /// Checks if the value is in the list.
+    /// </summary>
+    /// <returns>True if list contains the value.</returns>
     public bool Contains(int value)
         => FindIndexByValue(value) >= 0;
 
+    /// <summary>
+    /// Looks up the index of the value in the list.
+    /// </summary>
+    /// <param name="value"></param>
+    /// <returns>First occurrence index from 0 to Size if list contains the value. Otherwise -1.</returns>
     public int FindIndexByValue(int value)
     {
         var temp = this.root;

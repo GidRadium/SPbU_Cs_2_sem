@@ -95,6 +95,5 @@ public class TicTacToe
     /// <returns>
     /// Cell current state.
     /// </returns>
-    public CellState GetCellState(int x, int y)
-        => this.field[x, y];
+    public CellState GetCellState(int x, int y) => this.field[x, y];
 }

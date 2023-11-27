@@ -8,7 +8,7 @@ namespace Task14TicTacToe;
 /// </summary>
 public partial class TicTacToeForm : Form
 {
-    private TicTacToe ticTacToe = new TicTacToe();
+    private TicTacToe ticTacToe = new();
 
     private void ClearAllButtons()
     {

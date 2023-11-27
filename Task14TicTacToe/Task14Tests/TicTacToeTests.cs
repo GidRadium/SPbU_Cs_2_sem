@@ -8,7 +8,7 @@ public class TicTacToeTests
 
     [SetUp]
     public void Setup()
-        => ticTacToe = new TicTacToe();
+        => ticTacToe = new();
 
     [Test]
     public void TicTacToeNoWinnerWhenEmpty()

@@ -2,6 +2,9 @@ namespace Task14Tests;
 
 using Task14TicTacToe;
 
+/// <summary>
+/// Tests for TicTacToe class
+/// </summary>
 public class TicTacToeTests
 {
     private TicTacToe ticTacToe;

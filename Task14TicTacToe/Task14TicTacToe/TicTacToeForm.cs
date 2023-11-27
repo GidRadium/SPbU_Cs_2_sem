@@ -1,7 +1,8 @@
+namespace Task14TicTacToe;
+
 using System;
 using System.Windows.Forms;
 
-namespace Task14TicTacToe;
 
 /// <summary>
 /// Main form of game app.

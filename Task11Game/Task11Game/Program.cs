@@ -3,7 +3,7 @@
 Field field;
 try
 {
-    field = new Field("..\\..\\..\\Fields\\MainField.txt");
+    field = new Field("../../../Fields/MainField.txt");
 }
 catch (FileNotFoundException ex)
 {

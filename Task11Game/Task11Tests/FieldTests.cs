@@ -8,7 +8,7 @@ public class FieldTests
     [SetUp]
     public void Setup()
     {
-        field = new Field("..\\..\\..\\TestFields\\TestField.txt");
+        field = new Field("../../../TestFields/TestField.txt");
     }
 
     [Test]

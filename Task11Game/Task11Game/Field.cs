@@ -41,6 +41,8 @@ public class Field
         Size = (maxLineLength, lines.Length);
         data = new char[Size.w, Size.h];
 
+        int playersCount = 0;
+
         for (int i = 0; i < Size.w; i++)
         {
             for (int j = 0; j < Size.h; j++)
@@ -52,19 +54,17 @@ public class Field
                 }
                 
                 data[i, j] = (lines[j][i] == '#' ? '#' : ' ');
-                int playersCount = 0;
+                
                 if (lines[j][i] == '@')
                 {
-                    PlayerPosition = (i, j);
+                    this.PlayerPosition = (i, j);
                     playersCount++;
-                }
-                
-                if (playersCount != 1)
-                {
-                    throw new IncorrectFieldException();
                 }
             }
         }
+
+        if (playersCount != 1)
+            throw new IncorrectFieldException();
     }
 
     /// <summary>

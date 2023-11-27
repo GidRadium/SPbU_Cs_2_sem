@@ -19,10 +19,10 @@ public class Calculator
 
     private double operand1;
     private double operand2;
-    private string operandBuffer;
+    private string operandBuffer = "";
     private Operation operationBetweenOperands;
     private State state;
-    public string Result { get; private set; }
+    public string Result { get; private set; } = "";
 
     public string EnterNumber(int number)
     {
@@ -95,7 +95,6 @@ public class Calculator
             case State.SettingOperand2:
                 this.operand2 = double.Parse(this.operandBuffer);
                 this.operandBuffer = "";
-                // TODO check divide by 0
                 this.operand1 = this.Calculate(operand1, operand2, this.operationBetweenOperands);
                 this.operationBetweenOperands = operation;
                 this.Result = $"{this.operand1} {this.OperationToString(operation)} ";
@@ -121,7 +120,6 @@ public class Calculator
     {
         this.operand2 = double.Parse(this.operandBuffer);
         this.operandBuffer = "";
-        // TODO check divide by 0
         this.operand1 = this.Calculate(operand1, operand2, this.operationBetweenOperands);
         this.state = State.AfterEquals;
         this.Result = this.operand1.ToString();

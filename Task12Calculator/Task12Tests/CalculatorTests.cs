@@ -8,9 +8,7 @@ public class CalculatorTests
 
     [SetUp]
     public void Setup()
-    {
-        calculator = new Calculator();
-    }
+        => calculator = new Calculator();
 
     [Test]
     public void CalculatorOnePlusTwoIsThree()

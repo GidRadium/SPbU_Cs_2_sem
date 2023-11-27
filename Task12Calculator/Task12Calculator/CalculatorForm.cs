@@ -19,13 +19,14 @@ namespace Task12Calculator
         {
             InitializeComponent();
             calculator = new Calculator();
-            //ResultLabel.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.calculator, "Result"));
-            //Binding binding = new Binding("Text", this.calculator, "Result");
-            //binding.Format += (sender, e) => e.Value = $"O: {e.Value}";
-            //ResultLabel.DataBindings.Add(binding);
-            // TODO data binding для отображения результатов вычисления
         }
 
+        private void OnNumberButtonClick(object sender, EventArgs e)
+        {
+            var tag = (string)((System.Windows.Forms.Button)sender).Tag;
+            ResultLabel.Text = calculator.EnterNumber(Int32.Parse(tag));
+        }
+        
         private void OnButton1Click(object sender, EventArgs e)
         {
             ResultLabel.Text = calculator.EnterNumber(1);

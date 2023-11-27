@@ -1,10 +1,17 @@
-﻿using System;
-namespace Task11Game;
+﻿namespace Task11Game;
 
+using System;
+
+/// <summary>
+/// Main game class. Draws the field and handles user input.
+/// </summary>
 public class Game
 {
     private Field field;
 
+    /// <summary>
+    /// Sets field and draws it.
+    /// </summary>
     public Game(Field field)
     {
         this.field = field;
@@ -19,7 +26,7 @@ public class Game
             for (int j = 0; j < field.Size.Item2; j++)
             {
                 Console.SetCursorPosition(i, j);
-                Console.Write(field.Data[i, j]);
+                Console.Write(field.getFieldCell(i, j));
             }
         }
 
@@ -38,15 +45,27 @@ public class Game
         Console.SetCursorPosition(field.Size.w, field.Size.h - 1);
     }
 
+    /// <summary>
+    /// Left arrow handler.
+    /// </summary>
     public void OnLeft(object sender, EventArgs args)
         => TryToMovePlayer((-1, 0));
 
+    /// <summary>
+    /// Right arrow handler.
+    /// </summary>
     public void OnRight(object sender, EventArgs args)
         => TryToMovePlayer((1, 0));
 
+    /// <summary>
+    /// Up arrow handler.
+    /// </summary>
     public void OnUp(object sender, EventArgs args)
         => TryToMovePlayer((0, -1));
 
+    /// <summary>
+    /// Down arrow handler.
+    /// </summary>
     public void OnDown(object sender, EventArgs args)
         => TryToMovePlayer((0, 1));
 }

@@ -1,11 +1,32 @@
-﻿namespace Task11Game;
+﻿using System.Diagnostics;
 
+namespace Task11Game;
+
+/// <summary>
+/// Game field data class. Also cantains player and moves it;
+/// </summary>
 public class Field
 {
-    public char[,] Data { get; }
+    private char[,] data;
+
+    /// <returns>Field cell (char) by its coords.</returns>
+    public char getFieldCell(int x, int y) => data[x, y];
+
+    /// <summary>
+    /// Field width and height.
+    /// </summary>
     public (int w, int h) Size { get; }
+
+    /// <summary>
+    /// Player position coords.
+    /// </summary>
     public (int x, int y) PlayerPosition { get; private set; }
     
+    /// <summary>
+    /// Field class constructor. Loads data from file.
+    /// </summary>
+    /// <exception cref="FileNotFoundException"></exception>
+    /// <exception cref="IncorrectFieldException"></exception>
     public Field(string fileWithFieldPath)
     {
         if (!File.Exists(fileWithFieldPath))
@@ -18,7 +39,7 @@ public class Field
             maxLineLength = Math.Max(maxLineLength, line.Length);
 
         Size = (maxLineLength, lines.Length);
-        Data = new char[Size.w, Size.h];
+        data = new char[Size.w, Size.h];
 
         for (int i = 0; i < Size.w; i++)
         {
@@ -26,17 +47,29 @@ public class Field
             {
                 if (lines[j].Length <= i)
                 {
-                    Data[i, j] = '#';
+                    data[i, j] = '#';
                     continue;
                 }
                 
-                Data[i, j] = (lines[j][i] == '#' ? '#' : ' ');
+                data[i, j] = (lines[j][i] == '#' ? '#' : ' ');
+                int playersCount = 0;
                 if (lines[j][i] == '@')
+                {
                     PlayerPosition = (i, j);
+                    playersCount++;
+                }
+                
+                if (playersCount != 1)
+                {
+                    throw new IncorrectFieldException();
+                }
             }
         }
     }
 
+    /// <summary>
+    /// Moves player by the delta if it is possible. Player can teleport throught field boundary.
+    /// </summary>
     public void TryToMovePlayer((int x, int y) delta)
     {
         (int x, int y) newPlayerPos = (PlayerPosition.x + delta.x, PlayerPosition.y + delta.y);
@@ -45,7 +78,7 @@ public class Field
         if (newPlayerPos.x >= Size.w) newPlayerPos.x -= Size.w;
         if (newPlayerPos.y >= Size.h) newPlayerPos.y -= Size.h;
 
-        if (Data[newPlayerPos.x, newPlayerPos.y] == '#')
+        if (data[newPlayerPos.x, newPlayerPos.y] == '#')
             return;
 
         this.PlayerPosition = newPlayerPos;

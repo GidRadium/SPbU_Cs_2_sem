@@ -1,5 +1,8 @@
 ﻿namespace Task11Game;
 
+/// <summary>
+/// Event loop of the game.
+/// </summary>
 public class EventLoop
 {
     public event EventHandler<EventArgs> LeftHandler = (sender, args) => { };
@@ -7,6 +10,9 @@ public class EventLoop
     public event EventHandler<EventArgs> UpHandler = (sender, args) => { };
     public event EventHandler<EventArgs> DownHandler = (sender, args) => { };
 
+    /// <summary>
+    /// Checks arrows and escape in infinity loop.
+    /// </summary>
     public void Run()
     {
         while (true)

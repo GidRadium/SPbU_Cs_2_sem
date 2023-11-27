@@ -2,6 +2,9 @@ namespace Task12Tests;
 
 using Task12Calculator;
 
+/// <summary>
+/// Tests for calculator data.
+/// </summary>
 public class CalculatorTests
 {
     private Calculator calculator;

@@ -1,5 +1,8 @@
 namespace Task12Calculator;
 
+/// <summary>
+/// Program start point.
+/// </summary>
 internal static class Program
 {
     /// <summary>

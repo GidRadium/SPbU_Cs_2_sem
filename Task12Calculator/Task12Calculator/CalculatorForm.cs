@@ -1,13 +1,19 @@
 namespace Task12Calculator;
 
+/// <summary>
+/// Main form class.
+/// </summary>
 public partial class CalculatorForm : Form
 {
     private Calculator calculator;
 
+    /// <summary>
+    /// Inits form stuff and creates calculator data class.
+    /// </summary>
     public CalculatorForm()
     {
         InitializeComponent();
-        calculator = new Calculator();
+        calculator = new();
     }
 
     private void OnNumberButtonClick(object sender, EventArgs e)

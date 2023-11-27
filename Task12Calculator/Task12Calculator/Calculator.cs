@@ -1,5 +1,8 @@
 ﻿namespace Task12Calculator;
 
+/// <summary>
+/// Calculator data class.
+/// </summary>
 public class Calculator
 {
     private enum State
@@ -9,6 +12,9 @@ public class Calculator
         AfterEquals
     }
 
+    /// <summary>
+    /// Enum that represents operations.
+    /// </summary>
     public enum Operation
     {
         Plus,
@@ -22,8 +28,16 @@ public class Calculator
     private string operandBuffer = "";
     private Operation operationBetweenOperands;
     private State state;
+
+    /// <summary>
+    /// Text output of calculator.
+    /// </summary>
     public string Result { get; private set; } = "";
 
+    /// <summary>
+    /// Handles user number input.
+    /// </summary>
+    /// <returns>Text output of calculator.</returns>
     public string EnterNumber(int number)
     {
         switch (this.state)
@@ -77,6 +91,10 @@ public class Calculator
         }
     }
 
+    /// <summary>
+    /// Handles user operation input.
+    /// </summary>
+    /// <returns>Text output of calculator.</returns>
     public string EnterOperation(Operation operation)
     {
         if (operandBuffer.Length == 0 && this.state != State.AfterEquals)
@@ -108,6 +126,10 @@ public class Calculator
         return this.Result;
     }
 
+    /// <summary>
+    /// Clears all data.
+    /// </summary>
+    /// <returns>Text output of calculator.</returns>
     public string Clear()
     {
         this.operandBuffer = "";
@@ -116,6 +138,10 @@ public class Calculator
         return this.Result;
     }
 
+    /// <summary>
+    /// Handles user equals input.
+    /// </summary>
+    /// <returns>Text output of calculator.</returns>
     public string Equals()
     {
         this.operand2 = double.Parse(this.operandBuffer);

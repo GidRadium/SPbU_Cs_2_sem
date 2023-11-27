@@ -1,16 +1,22 @@
 ﻿namespace Task06ParseTree;
 
-// Main project class. Parses expressions like (<operation> <operand1> <operand2>), where operand can also be an expression.
+/// <summary>
+/// Main project class. Parses expressions like (<operation> <operand1> <operand2>), where operand can also be an expression.
+/// </summary>
 public class ParseTree
 {
-    // Base class of Operations used in expressions.
+    /// <summary>
+    /// Base class of Operations used in expressions.
+    /// </summary>
     private abstract class Operation
     {
         public abstract double Count(double operand1, double operand2);
         public abstract override string ToString();
     }
 
-    // Represents "+" in expression.
+    /// <summary>
+    /// Represents "+" in expression.
+    /// </summary>
     private class Addition : Operation
     {
         public override double Count(double operand1, double operand2) => operand1 + operand2;
@@ -18,7 +24,9 @@ public class ParseTree
         public override string ToString() => "+";
     }
 
-    // Represents "-" in expression.
+    /// <summary>
+    /// Represents "-" in expression.
+    /// </summary>
     private class Subtraction : Operation
     {
         public override double Count(double operand1, double operand2) => operand1 - operand2;
@@ -26,7 +34,9 @@ public class ParseTree
         public override string ToString() => "-";
     }
 
-    // Represents "*" in expression.
+    /// <summary>
+    /// Represents "*" in expression.
+    /// </summary>
     private class Multiplication : Operation
     {
         public override double Count(double operand1, double operand2) => operand1 * operand2;
@@ -34,7 +44,9 @@ public class ParseTree
         public override string ToString() => "*";
     }
 
-    // Represents "/" in expression.
+    /// <summary>
+    /// Represents "/" in expression.
+    /// </summary>
     private class Division : Operation
     {
         public override double Count(double operand1, double operand2)
@@ -47,7 +59,9 @@ public class ParseTree
         public override string ToString() => "/";
     }
 
-    // Base class of Nodes. Represents value from expression.
+    /// <summary>
+    /// Base class of Nodes. Represents value from expression.
+    /// </summary>
     private class Node
     {
         private double value;
@@ -58,7 +72,9 @@ public class ParseTree
         public override string ToString() => value.ToString();
     }
 
-    // Class of Node, that represents operation.
+    /// <summary>
+    /// Class of Node, that represents operation.
+    /// </summary>
     private class OperationNode : Node
     {
         public override double GetValue()
@@ -147,6 +163,9 @@ public class ParseTree
         throw new IncorrectExpressionException();
     }
 
+    /// <summary>
+    /// Constructor, that parses tree by expression.
+    /// </summary>
     public ParseTree(string expression)
     {
         if (expression == null)
@@ -155,9 +174,17 @@ public class ParseTree
         this.root = Parse(expression);
     }
 
+    /// <summary>
+    /// Passes throught all nodes.
+    /// </summary>
+    /// <returns>Result of the expression.</returns>
     public double Count()
         => this.root.GetValue();
 
+    /// <summary>
+    /// Passes throught all nodes.
+    /// </summary>
+    /// <returns>Expression as string.</returns>
     public override string ToString()
         => this.root.ToString();
 }

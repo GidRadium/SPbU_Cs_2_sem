@@ -1,4 +1,6 @@
 ﻿namespace Task06ParseTree;
 
-// Represents errors that throws because of passed expression contains structure errors
+/// <summary>
+/// Represents errors that throws because of passed expression contains structure errors
+/// </summary>
 public class IncorrectExpressionException : Exception { }
